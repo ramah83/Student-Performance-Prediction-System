@@ -1,4 +1,4 @@
-<h1 align="center" style="color:#2c3e50;">Education AI</h1>
+<img width="1913" height="822" alt="image" src="https://github.com/user-attachments/assets/e475158e-9cde-49cc-b2c9-c8f8df8fc7f7" /><h1 align="center" style="color:#2c3e50;">Education AI</h1>
 <h3 align="center" style="color:#34495e;">Student Performance Prediction System</h3>
 
 <p align="center">
@@ -87,6 +87,28 @@ The system integrates <b>Django</b> with modern <b>Machine Learning models</b> t
   <li>Django <b>4.2+</b></li>
   <li>Libraries listed in <code>requirements.txt</code></li>
 </ul>
+
+
+<hr>
+
+<h2 align="center">Project Screenshots</h2>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/50df3167-8bd4-419a-a81d-c8e939d367dd" width="30%" />
+  <img src="https://github.com/user-attachments/assets/b64c5aa3-2595-4a77-80e4-9781174fac53" width="30%" />
+  <img src="https://github.com/user-attachments/assets/d9b59235-5694-42d1-af7b-decc11f26c9d" width="30%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/59c38223-2d4d-409c-bc1e-fd81109f01ec" width="30%" />
+  <img src="https://github.com/user-attachments/assets/a5b4b5d8-4c09-4445-9fdb-e9838385af4f" width="30%" />
+  <img src="https://github.com/user-attachments/assets/b399ae6d-2f5a-4e48-8cdd-32914f22a7c1" width="30%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/31379cbe-9e9e-4301-a74c-e563c9ce680f" width="45%" />
+  <img src="https://github.com/user-attachments/assets/b3eda8b8-08a4-4605-8a03-c3c8677bdd31" width="45%" />
+</p>
 
 <hr>
 
