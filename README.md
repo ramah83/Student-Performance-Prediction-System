@@ -131,13 +131,10 @@ source venv/bin/activate</code></pre>
 <pre><code>python manage.py makemigrations
 python manage.py migrate</code></pre>
 
-<h3>5. Load Sample Data (Optional)</h3>
-<pre><code>python manage.py load_sample_data</code></pre>
-
-<h3>6. Train Machine Learning Models</h3>
+<h3>5. Train Machine Learning Models</h3>
 <pre><code>python manage.py train_models</code></pre>
 
-<h3>7. Run Development Server</h3>
+<h3>6. Run Development Server</h3>
 <pre><code>python manage.py runserver</code></pre>
 
 <hr>
