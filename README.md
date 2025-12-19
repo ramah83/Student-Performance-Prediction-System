@@ -1,95 +1,187 @@
-# Education AI - Student Performance Prediction System
+<img width="1913" height="822" alt="image" src="https://github.com/user-attachments/assets/e475158e-9cde-49cc-b2c9-c8f8df8fc7f7" /><h1 align="center" style="color:#2c3e50;">Education AI</h1>
+<h3 align="center" style="color:#34495e;">Student Performance Prediction System</h3>
 
-A comprehensive system for analyzing and predicting student performance using artificial intelligence and machine learning techniques.
+<p align="center">
+A comprehensive system for analyzing and predicting student performance using
+<b>Artificial Intelligence</b> and <b>Machine Learning</b>.
+</p>
 
-## Key Features
+<hr>
 
-- **Grade Prediction**: Predict student scores in math, reading, and writing
-- **Data Analysis**: Comprehensive analysis of student performance and influencing factors
-- **Smart Clustering**: Group students based on performance and shared characteristics
-- **Interactive Dashboard**: Modern user interface with interactive charts and visualizations
-- **Detailed Reports**: Generate comprehensive PDF reports on student performance
+<h2 style="color:#2c3e50;">Overview</h2>
 
-## Technologies Used
+<p>
+<b>Education AI</b> is designed to help educators and data analysts understand student performance through prediction, analysis, clustering, and visualization.
+The system integrates <b>Django</b> with modern <b>Machine Learning models</b> to provide accurate insights and interactive dashboards.
+</p>
 
-- **Backend**: Django 4.2, Django REST Framework
-- **Machine Learning**: Scikit-learn, TensorFlow/Keras
-- **Frontend**: HTML5, CSS3, JavaScript, Chart.js
-- **Database**: SQLite (scalable to PostgreSQL)
-- **Data Processing**: Pandas, NumPy
-- **Visualization**: Matplotlib, Seaborn
+<hr>
 
-## Requirements
+<h2 style="color:#2c3e50;">Key Features</h2>
 
-- Python 3.8+
-- Django 4.2+
-- Libraries listed in `requirements.txt`
+<ul>
+  <li><b>Grade Prediction</b><br>
+      Predict student scores in math, reading, and writing.
+  </li>
+  <br>
+  <li><b>Data Analysis</b><br>
+      Comprehensive analysis of student performance and influencing factors.
+  </li>
+  <br>
+  <li><b>Smart Clustering</b><br>
+      Group students based on performance and shared characteristics.
+  </li>
+  <br>
+  <li><b>Interactive Dashboard</b><br>
+      Modern user interface with interactive charts and visualizations.
+  </li>
+  <br>
+  <li><b>Detailed Reports</b><br>
+      Generate comprehensive <b>PDF reports</b> on student performance.
+  </li>
+</ul>
 
-## Installation and Setup
+<hr>
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/education-ai.git
-cd education-ai
-```
+<h2 style="color:#2c3e50;">Technologies Used</h2>
 
-### 2. Create virtual environment
-```bash
-python -m venv venv
-venv\Scripts\activate 
+<h3 style="color:#34495e;">Backend</h3>
+<ul>
+  <li>Django 4.2</li>
+  <li>Django REST Framework</li>
+</ul>
+
+<h3 style="color:#34495e;">Machine Learning</h3>
+<ul>
+  <li>Scikit-learn</li>
+  <li>TensorFlow / Keras</li>
+</ul>
+
+<h3 style="color:#34495e;">Frontend</h3>
+<ul>
+  <li>HTML5</li>
+  <li>CSS3</li>
+  <li>JavaScript</li>
+  <li>Chart.js</li>
+</ul>
+
+<h3 style="color:#34495e;">Data Processing & Visualization</h3>
+<ul>
+  <li>Pandas</li>
+  <li>NumPy</li>
+  <li>Matplotlib</li>
+  <li>Seaborn</li>
+</ul>
+
+<h3 style="color:#34495e;">Database</h3>
+<ul>
+  <li>SQLite (Scalable to PostgreSQL)</li>
+</ul>
+
+<hr>
+
+<h2 style="color:#2c3e50;">Requirements</h2>
+
+<ul>
+  <li>Python <b>3.8+</b></li>
+  <li>Django <b>4.2+</b></li>
+  <li>Libraries listed in <code>requirements.txt</code></li>
+</ul>
+
+
+<hr>
+
+<h2 align="center">Project Screenshots</h2>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/50df3167-8bd4-419a-a81d-c8e939d367dd" width="30%" />
+  <img src="https://github.com/user-attachments/assets/b64c5aa3-2595-4a77-80e4-9781174fac53" width="30%" />
+  <img src="https://github.com/user-attachments/assets/d9b59235-5694-42d1-af7b-decc11f26c9d" width="30%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/59c38223-2d4d-409c-bc1e-fd81109f01ec" width="30%" />
+  <img src="https://github.com/user-attachments/assets/a5b4b5d8-4c09-4445-9fdb-e9838385af4f" width="30%" />
+  <img src="https://github.com/user-attachments/assets/b399ae6d-2f5a-4e48-8cdd-32914f22a7c1" width="30%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/31379cbe-9e9e-4301-a74c-e563c9ce680f" width="45%" />
+  <img src="https://github.com/user-attachments/assets/b3eda8b8-08a4-4605-8a03-c3c8677bdd31" width="45%" />
+</p>
+
+<hr>
+
+<h2 style="color:#2c3e50;">Installation and Setup</h2>
+
+<h3>1. Clone the Repository</h3>
+<pre><code>git clone https://github.com/yourusername/education-ai.git
+cd education-ai</code></pre>
+
+<h3>2. Create Virtual Environment</h3>
+<pre><code>python -m venv venv
+venv\Scripts\activate
 # or
-source venv/bin/activate  
-```
+source venv/bin/activate</code></pre>
 
-### 3. Install requirements
-```bash
-pip install -r requirements.txt
-```
+<h3>3. Install Requirements</h3>
+<pre><code>pip install -r requirements.txt</code></pre>
 
-### 4. Setup database
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+<h3>4. Setup Database</h3>
+<pre><code>python manage.py makemigrations
+python manage.py migrate</code></pre>
 
-### 5. Load sample data (optional)
-```bash
-python manage.py load_sample_data
-```
+<h3>5. Train Machine Learning Models</h3>
+<pre><code>python manage.py train_models</code></pre>
 
-### 6. Train models
-```bash
-python manage.py train_models
-```
+<h3>6. Run Development Server</h3>
+<pre><code>python manage.py runserver</code></pre>
 
-### 7. Run the server
-```bash
-python manage.py runserver
-```
+<hr>
 
-## Project Structure
+<h2 style="color:#2c3e50;">Project Structure</h2>
 
-```
-education_ai/
+<pre><code>education_ai/
 ├── clustering/          # Smart clustering application
 ├── dashboard/           # Main dashboard
 ├── prediction/          # Prediction and analysis application
-├── models/             # Trained ML models
-├── Data/               # Student data
-├── static/             # Static files (CSS, JS)
-├── templates/          # HTML templates
-└── requirements.txt    # Project requirements
-```
+├── models/              # Trained ML models
+├── Data/                # Student data
+├── static/              # Static files (CSS, JS)
+├── templates/           # HTML templates
+└── requirements.txt     # Project requirements</code></pre>
 
-## Usage
+<hr>
 
-1. **Home Page**: Display general statistics about student performance
-2. **Grade Prediction**: Input new student data to get grade predictions
-3. **Clustering Analysis**: View different student groups and their characteristics
-4. **Reports**: Generate detailed PDF reports
+<h2 style="color:#2c3e50;">Usage</h2>
 
-## Contact
+<ul>
+  <li><b>Home Page</b><br>
+      Displays general statistics about student performance.
+  </li>
+  <br>
+  <li><b>Grade Prediction</b><br>
+      Input new student data to get predicted scores.
+  </li>
+  <br>
+  <li><b>Clustering Analysis</b><br>
+      View different student groups and their characteristics.
+  </li>
+  <br>
+  <li><b>Reports</b><br>
+      Generate detailed PDF performance reports.
+  </li>
+</ul>
 
-For any questions or suggestions, please open an Issue in the project.
-**Gmail** : rammohamed962@gmail.com
-**linkedin** : [rammohamed962@gmail.com](https://www.linkedin.com/in/mohamed-khaled-16547233a/)
+<hr>
+
+<h2 style="color:#2c3e50;">Contact</h2>
+
+<p>
+For any questions or suggestions, please open an <b>Issue</b> in the project.
+</p>
+
+<p>
+<b>Email:</b> rammohamed962@gmail.com<br>
+<b>LinkedIn:</b> https://www.linkedin.com/in/mohamed-khaled-16547233a/
+</p>
