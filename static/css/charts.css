@@ -1,0 +1,332 @@
+
+
+
+.chart-container {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 15px rgba(184, 92, 87, 0.1);
+    margin-bottom: 18px;
+    border: 1px solid rgba(184, 92, 87, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-container:hover {
+    box-shadow: 0 12px 30px rgba(184, 92, 87, 0.15);
+    transform: translateY(-2px);
+}
+
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #B85C57 0%, #A04A45 100%);
+}
+
+
+.js-plotly-plot {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 10px;
+}
+
+.js-plotly-plot .plotly {
+    border-radius: 10px;
+}
+
+.js-plotly-plot .main-svg {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.chart-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid rgba(184, 92, 87, 0.1);
+    color: #B85C57;
+    
+}
+
+.chart-loading .spinner-border {
+    color: #B85C57;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 10px;
+    
+}
+
+.chart-loading-text {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: center;
+    
+}
+
+
+.chart-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    background: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+    border-radius: 12px;
+    border: 2px dashed rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    text-align: center;
+    padding: 30px;
+}
+
+.chart-error i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+#predictionChart,
+#clusterVisualization,
+#scoreDistribution,
+#correlationHeatmap,
+#demographicAnalysis,
+#performanceComparison,
+#clusterChart {
+    min-height: 280px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 5px;
+    position: relative;
+    
+    will-change: transform;
+    
+}
+
+
+.chart-title {
+    font-family: 'Cairo', 'Tahoma', 'Arial Unicode MS', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #2C2C2C !important;
+    text-align: center !important;
+    margin-bottom: 15px !important;
+}
+
+.chart-axis-title {
+    font-family: 'Cairo', 'Tahoma', 'Arial Unicode MS', sans-serif !important;
+    font-size: 12px !important;
+    color: #666 !important;
+}
+
+.chart-tick-label {
+    font-family: 'Cairo', 'Tahoma', 'Arial Unicode MS', sans-serif !important;
+    font-size: 10px !important;
+    color: #666 !important;
+}
+
+
+.chart-container:hover .js-plotly-plot {
+    transform: scale(1.01);
+    transition: transform 0.3s ease;
+}
+
+
+.chart-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.chart-btn {
+    background: linear-gradient(135deg, #B85C57 0%, #A04A45 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(184, 92, 87, 0.2);
+}
+
+.chart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(184, 92, 87, 0.3);
+    background: linear-gradient(135deg, #A04A45 0%, #8B3A35 100%);
+}
+
+.chart-btn.active {
+    background: linear-gradient(135deg, #28a745 0%, #20a83a 100%);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+
+@media (max-width: 768px) {
+    .chart-container {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    #predictionChart,
+    #clusterVisualization,
+    #scoreDistribution,
+    #correlationHeatmap,
+    #demographicAnalysis,
+    #performanceComparison {
+        min-height: 280px;
+        padding: 5px;
+    }
+    
+    .chart-title {
+        font-size: 14px !important;
+    }
+    
+    .chart-axis-title {
+        font-size: 10px !important;
+    }
+    
+    .chart-tick-label {
+        font-size: 8px !important;
+    }
+    
+    .chart-controls {
+        margin-bottom: 15px;
+    }
+    
+    .chart-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .chart-container {
+        padding: 10px;
+    }
+    
+    #predictionChart,
+    #clusterVisualization,
+    #scoreDistribution,
+    #correlationHeatmap,
+    #demographicAnalysis,
+    #performanceComparison {
+        min-height: 250px;
+        padding: 5px;
+    }
+    
+    .chart-loading {
+        min-height: 200px;
+    }
+    
+    .chart-loading .spinner-border {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .chart-loading-text {
+        font-size: 0.9rem;
+    }
+}
+
+
+@keyframes chartFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chart-container {
+    animation: chartFadeIn 0.6s ease-out;
+}
+
+
+.chart-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.chart-container::-webkit-scrollbar-track {
+    background: #F5F1ED;
+    border-radius: 3px;
+}
+
+.chart-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #B85C57 0%, #A04A45 100%);
+    border-radius: 3px;
+}
+
+.chart-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #A04A45 0%, #8B3A35 100%);
+}
+
+
+.modebar {
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.chart-container:hover .modebar {
+    opacity: 0.7 !important;
+}
+
+.modebar-btn {
+    color: #B85C57 !important;
+}
+
+.modebar-btn:hover {
+    background: rgba(184, 92, 87, 0.1) !important;
+}
+
+
+.legend {
+    font-family: 'Cairo', 'Tahoma', 'Arial Unicode MS', sans-serif !important;
+    font-size: 11px !important;
+}
+
+
+.hoverlayer .hovertext {
+    font-family: 'Cairo', 'Tahoma', 'Arial Unicode MS', sans-serif !important;
+    font-size: 12px !important;
+    background: rgba(44, 44, 44, 0.9) !important;
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+.gridlayer .crisp {
+    stroke: #F0F0F0 !important;
+    stroke-width: 0.5px !important;
+}
+
+
+.bg {
+    fill: #FFFFFF !important;
+}
+
+.paper_bgcolor {
+    fill: #FFFFFF !important;
+}
+
+.plot_bgcolor {
+    fill: #FFFFFF !important;
+}

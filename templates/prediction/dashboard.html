@@ -1,0 +1,914 @@
+{% extends 'base.html' %}
+
+{% block title %}RAM - التنبؤ بالدرجات{% endblock %}
+
+{% block content %}
+<div class="col-12">
+    <div class="main-content">
+        <!-- Modern 3D Page Header -->
+        <div class="page-header-3d fade-in-up">
+            <h1>التنبؤ بدرجات الطلاب</h1>
+            <p>نظام ذكي للتنبؤ بالأداء الأكاديمي باستخدام خوارزميات التعلم الآلي المتطورة</p>
+        </div>
+        
+        <div class="row">
+            <!-- Left Column: Input Form and Results -->
+            <div class="col-md-6">
+                <!-- 3D Input Form -->
+                <div class="form-3d fade-in-left mb-4">
+                    <div class="text-center mb-4">
+                        <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">بيانات الطالب</div>
+                        <h4 style="color: var(--text-primary);">إدخال بيانات الطالب</h4>
+                    </div>
+                    <form id="predictionForm">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <label class="form-label-3d">الجنس</label>
+                                <select class="form-control-3d" name="gender" required>
+                                    <option value="">اختر الجنس</option>
+                                    <option value="male">ذكر male</option>
+                                    <option value="female">أنثى female</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label-3d">العرق/الإثنية</label>
+                                <select class="form-control-3d" name="race_ethnicity" required>
+                                    <option value="">اختر المجموعة</option>
+                                    <option value="group A">المجموعة A</option>
+                                    <option value="group B">المجموعة B</option>
+                                    <option value="group C">المجموعة C</option>
+                                    <option value="group D">المجموعة D</option>
+                                    <option value="group E">المجموعة E</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label-3d">مستوى تعليم الوالدين</label>
+                                <select class="form-control-3d" name="parental_education" required>
+                                    <option value="">اختر المستوى</option>
+                                    <option value="some high school">بعض الثانوية Some high school</option>
+                                    <option value="high school">ثانوية عامة High school</option>
+                                    <option value="some college">بعض الجامعة Some college</option>
+                                    <option value="associate's degree">درجة مشارك Associate's degree</option>
+                                    <option value="bachelor's degree">بكالوريوس Bachelor's degree</option>
+                                    <option value="master's degree">ماجستير Master's degree</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label-3d">نوع الوجبة</label>
+                                <select class="form-control-3d" name="lunch" required>
+                                    <option value="">اختر النوع</option>
+                                    <option value="standard">عادية Standard</option>
+                                    <option value="free/reduced">مجانية/مخفضة Free</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label-3d">دورة التحضير للاختبار</label>
+                                <select class="form-control-3d" name="test_preparation" required>
+                                    <option value="">اختر الحالة</option>
+                                    <option value="none">لم يحضر None</option>
+                                    <option value="completed">أكمل الدورة Completed</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn-3d w-100 micro-bounce" style="padding: 15px; font-size: 1.1rem;">
+                                تنبؤ بالدرجات
+                            </button>
+                        </form>
+                </div>
+                
+                <!-- 3D Results Section -->
+                <div class="card-3d fade-in-up">
+                    <div class="text-center mb-4">
+                        <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">النتائج</div>
+                        <h4 style="color: var(--text-primary);">نتائج التنبؤ</h4>
+                    </div>
+                    <div id="predictionResults" class="text-center">
+                        <div class="py-4">
+                            <div class="stats-icon-3d" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.5;">التحليل</div>
+                            <p style="color: var(--text-secondary);">قم بإدخال البيانات والضغط على "تنبؤ بالدرجات" لعرض النتائج</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3D Prediction Chart -->
+                <div class="chart-container-3d mt-4 fade-in-up">
+                    <div class="text-center mb-3">
+                        <h5 style="color: var(--text-primary);">
+                            <i class="fas fa-chart-area" style="margin-left: 10px; color: #667eea;"></i>
+                            رسم بياني للنتائج
+                        </h5>
+                    </div>
+                    <div id="predictionChart" style="height: 300px;"></div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Model Training and Performance -->
+            <div class="col-md-6">
+                <!-- Model Training -->
+                <div class="card-3d fade-in-right mb-4">
+                    <div class="text-center mb-4">
+                        <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">تدريب النموذج</div>
+                        <h4 style="color: var(--text-primary);">إعداد نموذج التعلم الآلي</h4>
+                    </div>
+                    <div class="text-center">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">قم بتدريب نموذج التعلم الآلي أولاً قبل البدء في التنبؤ</p>
+                        <button id="trainModel" class="btn-3d w-100 micro-bounce" style="padding: 15px; font-size: 1.1rem;">
+                            🚀 تدريب النموذج
+                        </button>
+                        <div id="trainingStatus" class="mt-3"></div>
+                        <div id="modelStatus" class="mt-2"></div>
+                    </div>
+                </div>
+                
+                <!-- Model Performance -->
+                <div class="card-3d fade-in-up">
+                    <div class="text-center mb-4">
+                        <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">أداء النماذج</div>
+                        <h4 style="color: var(--text-primary);">مقاييس الأداء</h4>
+                    </div>
+                    <div class="text-center mb-3">
+                        <button id="showDetailedPerformance" class="btn-3d micro-bounce">
+                            <i class="fas fa-chart-pie me-2"></i>تقرير مفصل
+                        </button>
+                    </div>
+                    <div id="modelPerformance">
+                        <div class="text-center py-4">
+                            <div class="stats-icon-3d" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.5;">الإحصائيات</div>
+                            <p style="color: var(--text-secondary);">سيتم عرض أداء النماذج بعد التنبؤ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Information Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>ℹ️ كيف يعمل النظام؟</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6>1. تدريب النموذج</h6>
+                                <p>يتم تدريب نماذج Random Forest على بيانات الطلاب التاريخية</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>2. إدخال البيانات</h6>
+                                <p>أدخل المعلومات الأساسية عن الطالب</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>3. التنبؤ</h6>
+                                <p>احصل على التنبؤات لدرجات الرياضيات والقراءة والكتابة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Performance Modal -->
+<div class="modal fade" id="performanceModal" tabindex="-1" aria-labelledby="performanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="performanceModalLabel">
+                    <i class="fas fa-chart-pie me-2"></i>تقرير أداء النماذج المفصل
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailedPerformanceContent">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">جاري تحميل التقرير...</span>
+                        </div>
+                        <p class="mt-3 text-muted">جاري تحميل مقاييس الأداء المفصلة...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                <button type="button" class="btn btn-primary" id="downloadReport">
+                    <i class="fas fa-download me-1"></i>تحميل التقرير
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Check if models are trained on page load
+    checkModelStatus();
+    
+    // Train Model
+    $('#trainModel').click(function() {
+        const btn = $(this);
+        btn.prop('disabled', true).html('⏳ جاري التدريب...');
+        $('#trainingStatus').html(`
+            <div class="alert alert-info">
+                <div class="d-flex align-items-center">
+                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                    <span>جاري تدريب النموذج... قد يستغرق هذا بضع دقائق</span>
+                </div>
+            </div>
+        `);
+        
+        $.ajax({
+            url: '/api/prediction/train/',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            timeout: 300000, // 5 minutes timeout
+            success: function(data) {
+                $('#trainingStatus').html(`
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>تم تدريب النموذج بنجاح!</strong>
+                        <br><small>دقة النماذج: الرياضيات ${(data.scores['math score'] * 100).toFixed(1)}%، 
+                        القراءة ${(data.scores['reading score'] * 100).toFixed(1)}%، 
+                        الكتابة ${(data.scores['writing score'] * 100).toFixed(1)}%</small>
+                    </div>
+                `);
+                btn.prop('disabled', false).html('🚀 تدريب النموذج');
+                
+                // إعادة فحص حالة النماذج وتمكين النموذج
+                setTimeout(function() {
+                    checkModelStatus();
+                }, 1000);
+            },
+            error: function(xhr, status, error) {
+                let errorMessage = 'حدث خطأ في التدريب';
+                
+                if (xhr.responseJSON) {
+                    errorMessage = xhr.responseJSON.error || xhr.responseJSON.message || errorMessage;
+                } else if (status === 'timeout') {
+                    errorMessage = 'انتهت مهلة التدريب - يرجى المحاولة مرة أخرى';
+                }
+                
+                $('#trainingStatus').html(`
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times-circle me-2"></i>
+                        <strong>خطأ في التدريب:</strong> ${errorMessage}
+                    </div>
+                `);
+                btn.prop('disabled', false).html('🚀 تدريب النموذج');
+            }
+        });
+    });
+    
+    // Prediction Form
+    $('#predictionForm').submit(function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        $('#predictionResults').html(`
+            <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">جاري التنبؤ...</span>
+                </div>
+                <p class="mt-2 text-muted">جاري تحليل البيانات والتنبؤ...</p>
+            </div>
+        `);
+        
+        const formData = {
+            gender: $('[name=gender]').val(),
+            race_ethnicity: $('[name=race_ethnicity]').val(),
+            parental_education: $('[name=parental_education]').val(),
+            lunch: $('[name=lunch]').val(),
+            test_preparation: $('[name=test_preparation]').val()
+        };
+        
+        // Validate form data
+        const requiredFields = {
+            'gender': 'الجنس',
+            'race_ethnicity': 'العرق/الإثنية', 
+            'parental_education': 'مستوى تعليم الوالدين',
+            'lunch': 'نوع الوجبة',
+            'test_preparation': 'دورة التحضير للاختبار'
+        };
+        
+        let missingFields = [];
+        for (let key in formData) {
+            if (!formData[key]) {
+                missingFields.push(requiredFields[key]);
+            }
+        }
+        
+        if (missingFields.length > 0) {
+            $('#predictionResults').html(`
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    يرجى ملء الحقول التالية: ${missingFields.join(', ')}
+                </div>
+            `);
+            return;
+        }
+        
+        console.log('Form data being sent:', formData);
+        
+        // استدعاء API التنبؤ الحقيقي
+        $.ajax({
+            url: '/api/prediction/predict/',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(formData),
+            success: function(response) {
+                if (response.success && response.predictions) {
+                    const predictions = response.predictions;
+                    
+                    // Display comprehensive prediction results
+                    $('#predictionResults').html(`
+                        <div class="prediction-success">
+                            <div class="row mb-4">
+                                <div class="col-4">
+                                    <div class="stats-card-3d fade-in-up">
+                                        <div class="stats-number-3d" style="color: #B85C57;">${predictions.math_score}</div>
+                                        <div class="stats-label-3d">الرياضيات</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stats-card-3d fade-in-up" style="animation-delay: 0.1s;">
+                                        <div class="stats-number-3d" style="color: #28a745;">${predictions.reading_score}</div>
+                                        <div class="stats-label-3d">القراءة</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stats-card-3d fade-in-up" style="animation-delay: 0.2s;">
+                                        <div class="stats-number-3d" style="color: #ffc107;">${predictions.writing_score}</div>
+                                        <div class="stats-label-3d">الكتابة</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Performance Summary -->
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="alert alert-info" style="background: linear-gradient(135deg, ${predictions.performance_color}22, ${predictions.performance_color}11); border: 1px solid ${predictions.performance_color};">
+                                        <h6 style="color: ${predictions.performance_color}; margin-bottom: 10px;">
+                                            <i class="fas fa-chart-line me-2"></i>تقييم الأداء العام
+                                        </h6>
+                                        <p style="margin-bottom: 8px;"><strong>المستوى:</strong> ${predictions.performance_level}</p>
+                                        <p style="margin-bottom: 8px;"><strong>المتوسط العام:</strong> ${predictions.average_score}/100</p>
+                                        <p style="margin-bottom: 8px;"><strong>أقوى المواد:</strong> ${predictions.strongest_subject}</p>
+                                        <p style="margin-bottom: 0;"><strong>يحتاج تحسين:</strong> ${predictions.weakest_subject}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Recommendations -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-success">
+                                        <h6><i class="fas fa-lightbulb me-2"></i>توصيات للتحسين</h6>
+                                        <ul style="margin-bottom: 0; padding-left: 20px;">
+                                            ${predictions.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    
+                    // إنشاء الرسم البياني
+                    createPredictionChart(predictions);
+                    
+                    // عرض أداء النماذج إذا كان متاحاً
+                    if (response.model_performance) {
+                        displayModelPerformance(response.model_performance);
+                    }
+                    
+                } else {
+                    $('#predictionResults').html(`
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            حدث خطأ في التنبؤ: ${response.error || 'خطأ غير معروف'}
+                        </div>
+                    `);
+                }
+            },
+            error: function(xhr, status, error) {
+                let errorMessage = 'حدث خطأ في الاتصال بالخادم';
+                
+                console.log('Prediction error:', xhr.responseJSON, status, error);
+                
+                if (xhr.responseJSON) {
+                    if (xhr.responseJSON.action_required === 'TRAIN_MODEL_FIRST') {
+                        errorMessage = `
+                            <div class="alert alert-warning">
+                                <h6><i class="fas fa-exclamation-triangle me-2"></i>يجب تدريب النموذج أولاً</h6>
+                                <p>${xhr.responseJSON.message}</p>
+                                <button class="btn btn-primary btn-sm" onclick="$('#trainModel').click()">
+                                    <i class="fas fa-play me-1"></i>ابدأ التدريب الآن
+                                </button>
+                            </div>
+                        `;
+                    } else if (xhr.responseJSON.validation_errors) {
+                        errorMessage = `
+                            <div class="alert alert-danger">
+                                <h6><i class="fas fa-times-circle me-2"></i>بيانات غير صحيحة</h6>
+                                <ul style="margin-bottom: 0;">
+                                    ${xhr.responseJSON.validation_errors.map(err => `<li>${err}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                        
+                        // Show available options if provided
+                        if (xhr.responseJSON.available_options) {
+                            const options = xhr.responseJSON.available_options;
+                            errorMessage += `
+                                <div class="alert alert-info mt-2">
+                                    <h6>القيم المتاحة:</h6>
+                                    <small>
+                                        <strong>الجنس:</strong> ${options.gender ? options.gender.join(', ') : 'غير متاح'}<br>
+                                        <strong>العرق:</strong> ${options.race_ethnicity ? options.race_ethnicity.join(', ') : 'غير متاح'}<br>
+                                        <strong>التعليم:</strong> ${options.parental_education ? options.parental_education.join(', ') : 'غير متاح'}<br>
+                                        <strong>الوجبة:</strong> ${options.lunch ? options.lunch.join(', ') : 'غير متاح'}<br>
+                                        <strong>التحضير:</strong> ${options.test_preparation ? options.test_preparation.join(', ') : 'غير متاح'}
+                                    </small>
+                                </div>
+                            `;
+                        }
+                    } else {
+                        errorMessage = `
+                            <div class="alert alert-danger">
+                                <i class="fas fa-times-circle me-2"></i>
+                                ${xhr.responseJSON.error || xhr.responseJSON.message || errorMessage}
+                            </div>
+                        `;
+                    }
+                } else if (status === 'timeout') {
+                    errorMessage = `
+                        <div class="alert alert-warning">
+                            <i class="fas fa-clock me-2"></i>
+                            انتهت مهلة الاستجابة - يرجى المحاولة مرة أخرى
+                        </div>
+                    `;
+                }
+                
+                $('#predictionResults').html(errorMessage);
+            }
+        });
+
+    });
+    
+    // Show Detailed Performance Report
+    $('#showDetailedPerformance').click(function() {
+        $('#performanceModal').modal('show');
+        loadDetailedPerformance();
+    });
+    
+    // Download Report Handler
+    $('#downloadReport').click(function() {
+        const btn = $(this);
+        const originalText = btn.html();
+        
+        btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-1"></i>جاري التحميل...');
+        
+        // Create a temporary link to download the PDF
+        const link = document.createElement('a');
+        link.href = '/api/prediction/download-report/';
+        link.download = 'performance_report.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Reset button after a short delay
+        setTimeout(() => {
+            btn.prop('disabled', false).html(originalText);
+        }, 2000);
+    });
+    
+    // دالة إنشاء الرسم البياني
+    function createPredictionChart(predictions) {
+        const trace = {
+            x: ['الرياضيات', 'القراءة', 'الكتابة'],
+            y: [predictions.math_score, predictions.reading_score, predictions.writing_score],
+            type: 'bar',
+            marker: {
+                color: ['#B85C57', '#28a745', '#ffc107'],
+                line: {
+                    color: '#FFFFFF',
+                    width: 4
+                },
+                opacity: 0.95
+            },
+            text: [predictions.math_score.toFixed(1), predictions.reading_score.toFixed(1), predictions.writing_score.toFixed(1)],
+            textposition: 'auto',
+            textfont: {
+                color: 'white',
+                size: 16,
+                family: 'Cairo',
+                weight: 'bold'
+            },
+            hovertemplate: '<b>%{x}</b><br>الدرجة المتوقعة: %{y:.1f}<br><extra></extra>'
+        };
+        
+        const layout = {
+            title: {
+                text: 'التنبؤ بدرجات الطالب',
+                font: { family: 'Cairo', size: 18, color: '#2C2C2C', weight: 'bold' },
+                x: 0.5
+            },
+            yaxis: { 
+                title: { text: 'الدرجة المتوقعة', font: { family: 'Cairo', size: 12 } },
+                range: [0, 100],
+                gridcolor: '#F5F1ED',
+                gridwidth: 1,
+                font: { family: 'Cairo', size: 10 }
+            },
+            xaxis: {
+                font: { family: 'Cairo', size: 10 },
+                tickangle: 0
+            },
+            plot_bgcolor: '#FFFFFF',
+            paper_bgcolor: '#FFFFFF',
+            margin: { t: 50, b: 40, l: 50, r: 40 },
+            showlegend: false,
+            hovermode: 'x unified'
+        };
+        
+        try {
+            Plotly.newPlot('predictionChart', [trace], layout, {
+                responsive: true,
+                displayModeBar: false
+            });
+        } catch (error) {
+            console.error('خطأ في إنشاء الرسم البياني:', error);
+            $('#predictionChart').html(`
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    <strong>الرسم البياني غير متاح</strong><br>
+                    <small>النتائج معروضة أعلاه</small>
+                </div>
+            `);
+        }
+    }
+    
+    // دالة عرض أداء النماذج الحقيقي
+    function displayModelPerformance(performance) {
+        $('#modelPerformance').html(`
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="performance-card-3d">
+                        <div class="performance-header-3d">
+                            <i class="fas fa-brain text-success me-2"></i>
+                            <h6 style="color: var(--text-primary);">أداء النماذج المدربة</h6>
+                        </div>
+                        <div class="performance-metrics-3d">
+                            <div class="metric-3d">
+                                <span class="metric-label-3d">دقة الرياضيات:</span>
+                                <span class="metric-value-3d">${(performance.math_r2 * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="metric-3d">
+                                <span class="metric-label-3d">دقة القراءة:</span>
+                                <span class="metric-value-3d">${(performance.reading_r2 * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="metric-3d">
+                                <span class="metric-label-3d">دقة الكتابة:</span>
+                                <span class="metric-value-3d">${(performance.writing_r2 * 100).toFixed(1)}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+    }
+    
+    // دالة عرض أداء النماذج التجريبي (احتياطي)
+    function displayMockPerformance() {
+        $('#modelPerformance').html(`
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="performance-card-3d">
+                        <div class="performance-header-3d">
+                            <i class="fas fa-tree text-success me-2"></i>
+                            <h6 style="color: var(--text-primary);">Random Forest</h6>
+                        </div>
+                        <div class="performance-metrics-3d">
+                            <div class="metric-3d">
+                                <span class="metric-label-3d">دقة عامة:</span>
+                                <span class="metric-value-3d">87.5%</span>
+                            </div>
+                            <div class="metric-3d">
+                                <span class="metric-label-3d">الخطأ المتوسط:</span>
+                                <span class="metric-value-3d">11.2</span>
+                            </div>
+                            <div class="metric-3d">
+                                <span class="metric-label-3d">معامل التحديد:</span>
+                                <span class="metric-value-3d">0.823</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+    }
+    
+    function loadDetailedPerformance() {
+        $('#detailedPerformanceContent').html(`
+            <div class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">جاري تحميل التقرير...</span>
+                </div>
+                <p class="mt-3 text-muted">جاري تحميل مقاييس الأداء المفصلة...</p>
+            </div>
+        `);
+        
+        $.ajax({
+            url: '/api/prediction/performance/',
+            method: 'GET',
+            success: function(data) {
+                const metrics = data.performance_metrics;
+                let content = '';
+                
+                // Performance Summary
+                content += `
+                    <div class="row mb-4 performance-modal-rtl">
+                        <div class="col-12">
+                            <h6 class="text-primary mb-3 arabic-text">
+                                <i class="fas fa-tachometer-alt me-2"></i>ملخص الأداء العام
+                            </h6>
+                        </div>
+                `;
+                
+                Object.keys(metrics).forEach((subject, index) => {
+                    const metric = metrics[subject];
+                    const colors = ['#B85C57', '#28a745', '#ffc107'];
+                    
+                    content += `
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <h5 class="arabic-text" style="color: ${colors[index]};">${subject}</h5>
+                                    <div class="row metric-row">
+                                        <div class="col-6 metric-container">
+                                            <div class="metric-box">
+                                                <div class="arabic-text">معامل التحديد</div>
+                                                <div class="english-number">${(metric.test_r2 * 100).toFixed(1)}%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 metric-container">
+                                            <div class="metric-box">
+                                                <div class="arabic-text">متوسط الخطأ المطلق</div>
+                                                <div class="english-number">${metric.test_mae.toFixed(1)}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 metric-row">
+                                        <div class="col-6 metric-container">
+                                            <div class="metric-box">
+                                                <div class="arabic-text">دقة ±10</div>
+                                                <div class="english-number">${metric.test_accuracy_10.toFixed(1)}%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 metric-container">
+                                            <div class="metric-box">
+                                                <div class="arabic-text">دقة ±5</div>
+                                                <div class="english-number">${metric.test_accuracy_5.toFixed(1)}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                content += '</div>';
+                
+                // Confusion Matrices
+                content += `
+                    <div class="row mb-4 performance-modal-rtl">
+                        <div class="col-12">
+                            <h6 class="text-primary mb-3 arabic-text">
+                                <i class="fas fa-table me-2"></i>مصفوفات الخلط
+                            </h6>
+                        </div>
+                `;
+                
+                Object.keys(metrics).forEach(subject => {
+                    const metric = metrics[subject];
+                    if (metric.confusion_matrix_img) {
+                        content += `
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        <h6 class="arabic-text">${subject}</h6>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <img src="data:image/png;base64,${metric.confusion_matrix_img}" 
+                                             class="img-fluid" alt="Confusion Matrix - ${subject}">
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                content += '</div>';
+                
+                // Residuals Plots
+                content += `
+                    <div class="row mb-4 performance-modal-rtl">
+                        <div class="col-12">
+                            <h6 class="text-primary mb-3 arabic-text">
+                                <i class="fas fa-chart-scatter me-2"></i>مخططات البواقي
+                            </h6>
+                        </div>
+                `;
+                
+                Object.keys(metrics).forEach(subject => {
+                    const metric = metrics[subject];
+                    if (metric.residuals_img) {
+                        content += `
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        <h6 class="arabic-text">${subject}</h6>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <img src="data:image/png;base64,${metric.residuals_img}" 
+                                             class="img-fluid" alt="Residuals Plot - ${subject}">
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                content += '</div>';
+                
+                // Actual vs Predicted Plots
+                content += `
+                    <div class="row mb-4 performance-modal-rtl">
+                        <div class="col-12">
+                            <h6 class="text-primary mb-3 arabic-text">
+                                <i class="fas fa-chart-line me-2"></i>الفعلي مقابل المتنبأ
+                            </h6>
+                        </div>
+                `;
+                
+                Object.keys(metrics).forEach(subject => {
+                    const metric = metrics[subject];
+                    if (metric.actual_vs_pred_img) {
+                        content += `
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        <h6 class="arabic-text">${subject}</h6>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <img src="data:image/png;base64,${metric.actual_vs_pred_img}" 
+                                             class="img-fluid" alt="Actual vs Predicted - ${subject}">
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                content += '</div>';
+                
+                // Feature Importance
+                content += `
+                    <div class="row performance-modal-rtl">
+                        <div class="col-12">
+                            <h6 class="text-primary mb-3 arabic-text">
+                                <i class="fas fa-weight-hanging me-2"></i>أهمية المتغيرات
+                            </h6>
+                        </div>
+                `;
+                
+                Object.keys(metrics).forEach(subject => {
+                    const metric = metrics[subject];
+                    const importance = metric.feature_importance;
+                    
+                    // Translate feature names to Arabic
+                    const featureTranslations = {
+                        'gender': 'الجنس',
+                        'race/ethnicity': 'العرق/الإثنية',
+                        'parental level of education': 'مستوى تعليم الوالدين',
+                        'lunch': 'نوع الوجبة',
+                        'test preparation course': 'دورة التحضير للاختبار'
+                    };
+                    
+                    content += `
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h6 class="arabic-text">${subject}</h6>
+                                </div>
+                                <div class="card-body feature-importance-rtl">
+                    `;
+                    
+                    Object.keys(importance).forEach(feature => {
+                        const value = (importance[feature] * 100).toFixed(1);
+                        const arabicFeature = featureTranslations[feature] || feature;
+                        content += `
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small arabic-text">${arabicFeature}</span>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress me-2" style="width: 100px; height: 8px;">
+                                        <div class="progress-bar" style="width: ${value}%; background-color: #B85C57;"></div>
+                                    </div>
+                                    <span class="small text-muted english-number">${value}%</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    content += `
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                content += '</div>';
+                
+                $('#detailedPerformanceContent').html(content);
+            },
+            error: function() {
+                $('#detailedPerformanceContent').html(`
+                    <div class="alert alert-warning text-center">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>تعذر تحميل التقرير المفصل</strong>
+                        <p class="mb-0 mt-2">يرجى التأكد من تدريب النموذج أولاً</p>
+                    </div>
+                `);
+            }
+        });
+    }
+    
+    // دالة فحص حالة النماذج
+    function checkModelStatus() {
+        $.ajax({
+            url: '/api/prediction/status/',
+            method: 'GET',
+            success: function(data) {
+                if (data.models_ready) {
+                    // النماذج مدربة ومتاحة - تمكين النموذج
+                    $('#predictionForm input, #predictionForm select, #predictionForm button[type="submit"]').prop('disabled', false);
+                    $('#modelStatus').html(`
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>النماذج جاهزة للتنبؤ
+                        </div>
+                    `);
+                    console.log('✅ النماذج مدربة وجاهزة للتنبؤ');
+                } else {
+                    // النماذج غير مدربة - تعطيل النموذج
+                    $('#predictionForm input, #predictionForm select, #predictionForm button[type="submit"]').prop('disabled', true);
+                    
+                    $('#modelStatus').html(`
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            ${data.message || 'النماذج غير مدربة'}
+                        </div>
+                    `);
+                    
+                    $('#predictionResults').html(`
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-exclamation-triangle me-2" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                            <h6>يجب تدريب النماذج أولاً</h6>
+                            <p>لا يمكن التنبؤ بدون تدريب النماذج أولاً</p>
+                            <button class="btn btn-primary" onclick="$('#trainModel').click()">
+                                <i class="fas fa-play me-1"></i>ابدأ التدريب الآن
+                            </button>
+                        </div>
+                    `);
+                    
+                    console.log('⚠️ النماذج غير مدربة - يجب التدريب أولاً');
+                }
+            },
+            error: function(xhr) {
+                // خطأ في فحص النماذج - تعطيل النموذج احتياطياً
+                $('#predictionForm input, #predictionForm select, #predictionForm button[type="submit"]').prop('disabled', true);
+                
+                $('#modelStatus').html(`
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times-circle me-2"></i>خطأ في فحص حالة النماذج
+                    </div>
+                `);
+                
+                console.log('❌ خطأ في فحص حالة النماذج');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

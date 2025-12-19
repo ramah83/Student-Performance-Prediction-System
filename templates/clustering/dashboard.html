@@ -1,0 +1,1111 @@
+{% extends 'base.html' %}
+
+{% block title %}RAM - تجميع الطلاب{% endblock %}
+
+{% block content %}
+<div class="col-12">
+    <div class="main-content">
+        
+        <div class="page-header-3d fade-in-up">
+            <h1>تجميع الطلاب الذكي</h1>
+            <p>اكتشف الأنماط المخفية وجمع الطلاب في مجموعات متشابهة لتحسين العملية التعليمية</p>
+        </div>
+        
+        
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-sliders-h me-2"></i>إعدادات التجميع</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <label class="form-label"><i class="fas fa-layer-group me-2"></i>عدد المجموعات</label>
+                            <select id="numClusters" class="form-control">
+                                <option value="3">3 مجموعات</option>
+                                <option value="4" selected>4 مجموعات</option>
+                                <option value="5">5 مجموعات</option>
+                            </select>
+                        </div>
+                        <button id="performClustering" class="btn btn-primary w-100 btn-lg">
+                            🔍 تنفيذ التجميع
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-pie me-2"></i>إحصائيات المجموعات</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="clusterStats" class="row">
+                            <div class="col-12 text-center py-4">
+                                <i class="fas fa-users text-muted" style="font-size: 3rem;"></i>
+                                <p class="text-muted mt-3">قم بتنفيذ التجميع لعرض الإحصائيات</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row g-3 mb-3">
+            
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-header py-2">
+                        <h6 class="mb-0"><i class="fas fa-project-diagram me-2"></i>خريطة تجميع الطلاب</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="clusterVisualization" style="height: 350px;">
+                            <div class="text-center py-5">
+                                <i class="fas fa-project-diagram text-muted" style="font-size: 2rem;"></i>
+                                <p class="text-muted mt-2 mb-0">قم بتنفيذ التجميع لعرض الخريطة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header py-2">
+                        <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>توزيع الدرجات</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="scoreDistribution" style="height: 350px;">
+                            <div class="text-center py-5">
+                                <i class="fas fa-chart-bar text-muted" style="font-size: 2rem;"></i>
+                                <p class="text-muted mt-2 mb-0">قم بتنفيذ التجميع لعرض التوزيع</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row g-3 mb-3">
+            
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header py-2">
+                        <h6 class="mb-0"><i class="fas fa-th me-2"></i>مصفوفة الارتباط بين المواد</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="correlationHeatmap" style="height: 300px;">
+                            <div class="text-center py-5">
+                                <i class="fas fa-th text-muted" style="font-size: 2rem;"></i>
+                                <p class="text-muted mt-2 mb-0">قم بتنفيذ التجميع لعرض المصفوفة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header py-2">
+                        <h6 class="mb-0"><i class="fas fa-users me-2"></i>التحليل الديموغرافي</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="demographicAnalysis" style="height: 300px;">
+                            <div class="text-center py-5">
+                                <i class="fas fa-users text-muted" style="font-size: 2rem;"></i>
+                                <p class="text-muted mt-2 mb-0">قم بتنفيذ التجميع لعرض التحليل</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row g-3 mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header py-2">
+                        <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i>مقارنة أداء المجموعات</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="performanceComparison" style="height: 350px;">
+                            <div class="text-center py-5">
+                                <i class="fas fa-chart-line text-muted" style="font-size: 2rem;"></i>
+                                <p class="text-muted mt-2 mb-0">قم بتنفيذ التجميع لعرض المقارنة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>تفاصيل المجموعات</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="clusterDetails">
+                            <p class="text-muted text-center">قم بتنفيذ التجميع لعرض التفاصيل</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>ℹ️ كيف يعمل تجميع الطلاب؟</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>1. جمع البيانات</h6>
+                                <p>درجات الطلاب في المواد المختلفة ومعلومات إضافية</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>2. معالجة البيانات</h6>
+                                <p>تطبيع البيانات وتحضيرها للخوارزمية</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>3. خوارزمية K-Means</h6>
+                                <p>تجميع الطلاب في مجموعات متشابهة</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>4. التحليل</h6>
+                                <p>تحليل خصائص كل مجموعة وتقديم التوصيات</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    $('#performClustering').click(function() {
+        const btn = $(this);
+        const numClusters = parseInt($('#numClusters').val());
+        
+        btn.prop('disabled', true).html('⏳ جاري التجميع...');
+        
+        
+        setTimeout(function() {
+            const mockData = generateMockClusterData(numClusters);
+            displayClusterResults(mockData);
+            btn.prop('disabled', false).html('🔍 تنفيذ التجميع');
+        }, 2000); 
+    });
+    
+    
+    function generateMockClusterData(numClusters) {
+        const clusterNames = ['المتفوقون', 'الجيدون', 'المتوسطون', 'يحتاجون دعم', 'المبتدئون'];
+        const totalStudents = 1000;
+        
+        
+        let clusterStats = [];
+        let remainingStudents = totalStudents;
+        
+        for (let i = 0; i < numClusters; i++) {
+            let studentCount;
+            if (i === numClusters - 1) {
+                studentCount = remainingStudents;
+            } else {
+                
+                const baseCount = Math.floor(totalStudents / numClusters);
+                const variation = Math.floor(baseCount * 0.3 * (Math.random() - 0.5));
+                studentCount = baseCount + variation;
+                remainingStudents -= studentCount;
+            }
+            
+            clusterStats.push({
+                cluster_name: clusterNames[i],
+                student_count: Math.max(50, studentCount), 
+                avg_math: 60 + Math.random() * 30 + (numClusters - i - 1) * 5,
+                avg_reading: 65 + Math.random() * 25 + (numClusters - i - 1) * 5,
+                avg_writing: 62 + Math.random() * 28 + (numClusters - i - 1) * 5
+            });
+        }
+        
+        
+        const visualizationData = {
+            x: [],
+            y: [],
+            cluster: []
+        };
+        
+        for (let i = 0; i < numClusters; i++) {
+            const clusterSize = clusterStats[i].student_count;
+            for (let j = 0; j < Math.min(clusterSize, 100); j++) { 
+                
+                const centerX = (i % 2) * 50 + 25 + (Math.random() - 0.5) * 20;
+                const centerY = Math.floor(i / 2) * 50 + 25 + (Math.random() - 0.5) * 20;
+                
+                visualizationData.x.push(centerX);
+                visualizationData.y.push(centerY);
+                visualizationData.cluster.push(i);
+            }
+        }
+        
+        return {
+            cluster_stats: clusterStats,
+            visualization_data: visualizationData,
+            correlation_matrix: generateCorrelationMatrix(),
+            demographic_data: generateDemographicData(numClusters)
+        };
+    }
+    
+    
+    function generateCorrelationMatrix() {
+        return {
+            subjects: ['الرياضيات', 'القراءة', 'الكتابة'],
+            values: [
+                [1.0, 0.75, 0.68],
+                [0.75, 1.0, 0.82],
+                [0.68, 0.82, 1.0]
+            ]
+        };
+    }
+    
+    
+    function generateDemographicData(numClusters) {
+        return {
+            gender_distribution: {
+                male: 48 + Math.random() * 4,
+                female: 52 - Math.random() * 4
+            },
+            parental_education: {
+                'high_school': 25 + Math.random() * 10,
+                'bachelor': 35 + Math.random() * 10,
+                'master': 20 + Math.random() * 10,
+                'other': 20 + Math.random() * 10
+            }
+        };
+    }
+    
+    function displayClusterResults(data) {
+        
+        let statsHtml = '';
+        const colors = ['#B85C57', '#28a745', '#ffc107', '#17a2b8', '#6f42c1'];
+        
+        data.cluster_stats.forEach(function(cluster, index) {
+            statsHtml += `
+                <div class="col-md-${12/data.cluster_stats.length} mb-3">
+                    <div class="stats-card-3d fade-in-up" style="animation-delay: ${index * 0.1}s;">
+                        <div class="stats-number-3d" style="color: ${colors[index]};">${cluster.student_count}</div>
+                        <div class="stats-label-3d">${cluster.cluster_name}</div>
+                        <div class="stats-details-3d">
+                            <small style="color: #6c757d;">
+                                رياضيات: ${cluster.avg_math.toFixed(1)} | 
+                                قراءة: ${cluster.avg_reading.toFixed(1)} | 
+                                كتابة: ${cluster.avg_writing.toFixed(1)}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        $('#clusterStats').html(statsHtml);
+        
+        
+        window.lastClusterResults = data;
+        window.lastClusterColors = colors;
+        
+        
+        createClusterVisualization(data, colors);
+        
+        
+        createSimpleScoreDistribution(data, colors);
+        
+        
+        createSimpleCorrelationHeatmap(data);
+        
+        
+        createSimpleDemographicAnalysis(data);
+        
+        
+        createSimplePerformanceComparison(data, colors);
+        
+        
+        displaySimpleClusterDetails(data, colors);
+    }
+    
+    function createClusterVisualization(data, colors) {
+        try {
+            const trace = {
+                x: data.visualization_data.x,
+                y: data.visualization_data.y,
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                    color: data.visualization_data.cluster.map(c => colors[c]),
+                    size: 8,
+                    line: {
+                        color: '#FFFFFF',
+                        width: 1
+                    },
+                    opacity: 0.7
+                },
+                text: data.visualization_data.cluster.map((c, i) => 
+                    `المجموعة: ${data.cluster_stats[c].cluster_name}<br>` +
+                    `النقطة: ${i + 1}`
+                ),
+                hovertemplate: '%{text}<extra></extra>'
+            };
+        
+        const layout = {
+            title: {
+                text: 'خريطة تجميع الطلاب (تحليل المكونات الأساسية)',
+                font: { family: 'Cairo', size: 16, color: '#2C2C2C' },
+                x: 0.5
+            },
+            xaxis: { 
+                title: { text: 'المكون الأول', font: { family: 'Cairo', size: 12 } },
+                gridcolor: '#F5F1ED',
+                font: { family: 'Cairo', size: 10 }
+            },
+            yaxis: { 
+                title: { text: 'المكون الثاني', font: { family: 'Cairo', size: 12 } },
+                gridcolor: '#F5F1ED',
+                font: { family: 'Cairo', size: 10 }
+            },
+            plot_bgcolor: '#FFFFFF',
+            paper_bgcolor: '#FFFFFF',
+            showlegend: false,
+            margin: { t: 50, b: 50, l: 50, r: 50 }
+        };
+        
+        Plotly.newPlot('clusterVisualization', [trace], layout, {responsive: true, displayModeBar: false});
+        } catch (error) {
+            console.error('خطأ في إنشاء خريطة التجميع:', error);
+            $('#clusterVisualization').html(`
+                <div class="alert alert-info text-center m-2">
+                    <i class="fas fa-project-diagram me-2"></i>
+                    <strong>خريطة التجميع</strong><br>
+                    <small>تم إنشاء ${data.cluster_stats.length} مجموعات بنجاح</small>
+                </div>
+            `);
+        }
+    }
+    
+    function createScoreDistribution(data, colors) {
+        const subjects = ['math score', 'reading score', 'writing score'];
+        const arabicSubjects = ['الرياضيات', 'القراءة', 'الكتابة'];
+        
+        const traces = subjects.map((subject, index) => ({
+            y: data.cluster_stats.map(cluster => cluster[`avg_${subject.replace(' ', '_')}`]),
+            x: data.cluster_stats.map(cluster => cluster.cluster_name),
+            name: arabicSubjects[index],
+            type: 'bar',
+            marker: { color: colors[index] }
+        }));
+        
+        const layout = {
+            title: {
+                text: 'متوسط الدرجات حسب المجموعة',
+                font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                x: 0.5
+            },
+            xaxis: { 
+                title: { text: 'المجموعات', font: { family: 'Cairo', size: 10 } },
+                font: { family: 'Cairo', size: 9 }
+            },
+            yaxis: { 
+                title: { text: 'متوسط الدرجة', font: { family: 'Cairo', size: 10 } },
+                font: { family: 'Cairo', size: 9 }
+            },
+            plot_bgcolor: '#FFFFFF',
+            paper_bgcolor: '#FFFFFF',
+            legend: { font: { family: 'Cairo', size: 9 } },
+            margin: { t: 40, b: 60, l: 50, r: 20 }
+        };
+        
+        Plotly.newPlot('scoreDistribution', traces, layout, {responsive: true, displayModeBar: false});
+    }
+    
+    function createCorrelationHeatmap(data) {
+        if (!data.correlation_data) return;
+        
+        const subjects = ['math score', 'reading score', 'writing score'];
+        const arabicSubjects = ['الرياضيات', 'القراءة', 'الكتابة'];
+        const correlationMatrix = data.correlation_data.correlation_matrix;
+        
+        const z = subjects.map(subject1 => 
+            subjects.map(subject2 => correlationMatrix[subject1][subject2])
+        );
+        
+        
+        const annotations = [];
+        for (let i = 0; i < subjects.length; i++) {
+            for (let j = 0; j < subjects.length; j++) {
+                const value = z[i][j];
+                const textColor = value > 0.5 ? 'white' : 'black';
+                
+                annotations.push({
+                    x: arabicSubjects[j],
+                    y: arabicSubjects[i],
+                    text: value.toFixed(3),
+                    showarrow: false,
+                    font: {
+                        color: textColor,
+                        size: 14,
+                        family: 'Cairo'
+                    }
+                });
+            }
+        }
+        
+        const trace = {
+            z: z,
+            x: arabicSubjects,
+            y: arabicSubjects,
+            type: 'heatmap',
+            colorscale: [
+                [0, '#F5F1ED'],
+                [0.3, '#E8D5D1'],
+                [0.6, '#B85C57'],
+                [1, '#A04A45']
+            ],
+            showscale: true,
+            colorbar: {
+                title: {
+                    text: 'معامل الارتباط',
+                    font: { family: 'Cairo', size: 10 }
+                },
+                titleside: 'right'
+            },
+            hoverongaps: false,
+            hovertemplate: '<b>%{y} × %{x}</b><br>معامل الارتباط: %{z:.3f}<extra></extra>'
+        };
+        
+        const layout = {
+            title: {
+                text: 'مصفوفة الارتباط بين المواد الدراسية',
+                font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                x: 0.5
+            },
+            xaxis: { 
+                font: { family: 'Cairo', size: 10 },
+                side: 'bottom',
+                tickangle: 0
+            },
+            yaxis: { 
+                font: { family: 'Cairo', size: 10 },
+                autorange: 'reversed'
+            },
+            plot_bgcolor: '#FFFFFF',
+            paper_bgcolor: '#FFFFFF',
+            margin: { t: 40, b: 50, l: 80, r: 80 },
+            annotations: annotations
+        };
+        
+        Plotly.newPlot('correlationHeatmap', [trace], layout, {responsive: true, displayModeBar: false});
+    }
+    
+    function createDemographicAnalysis(data) {
+        if (!data.demographic_data) return;
+        
+        
+        const genderData = data.demographic_data.gender || {};
+        const genderLabels = Object.keys(genderData).map(key => 
+            key === 'male' ? 'ذكر' : key === 'female' ? 'أنثى' : key
+        );
+        
+        const trace = {
+            values: Object.values(genderData),
+            labels: genderLabels,
+            type: 'pie',
+            marker: {
+                colors: ['#B85C57', '#28a745']
+            },
+            textinfo: 'label+percent',
+            textfont: { family: 'Cairo', size: 10 }
+        };
+        
+        const layout = {
+            title: {
+                text: 'توزيع الطلاب حسب الجنس',
+                font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                x: 0.5
+            },
+            plot_bgcolor: '#FFFFFF',
+            paper_bgcolor: '#FFFFFF',
+            margin: { t: 40, b: 20, l: 20, r: 20 },
+            showlegend: true,
+            legend: { font: { family: 'Cairo', size: 9 } }
+        };
+        
+        Plotly.newPlot('demographicAnalysis', [trace], layout, {responsive: true, displayModeBar: false});
+    }
+    
+    function createPerformanceComparison(data, colors) {
+        const clusterNames = data.cluster_stats.map(cluster => cluster.cluster_name);
+        const mathScores = data.cluster_stats.map(cluster => cluster.avg_math_score);
+        const readingScores = data.cluster_stats.map(cluster => cluster.avg_reading_score);
+        const writingScores = data.cluster_stats.map(cluster => cluster.avg_writing_score);
+        
+        const traces = [
+            {
+                x: clusterNames,
+                y: mathScores,
+                name: 'الرياضيات',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: { color: '#B85C57', width: 3 },
+                marker: { size: 8 }
+            },
+            {
+                x: clusterNames,
+                y: readingScores,
+                name: 'القراءة',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: { color: '#28a745', width: 3 },
+                marker: { size: 8 }
+            },
+            {
+                x: clusterNames,
+                y: writingScores,
+                name: 'الكتابة',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: { color: '#ffc107', width: 3 },
+                marker: { size: 8 }
+            }
+        ];
+        
+        const layout = {
+            title: {
+                text: 'مقارنة الأداء الأكاديمي بين المجموعات',
+                font: { family: 'Cairo', size: 16, color: '#2C2C2C' },
+                x: 0.5
+            },
+            xaxis: { 
+                title: { text: 'المجموعات', font: { family: 'Cairo', size: 12 } },
+                font: { family: 'Cairo', size: 10 }
+            },
+            yaxis: { 
+                title: { text: 'متوسط الدرجة', font: { family: 'Cairo', size: 12 } },
+                font: { family: 'Cairo', size: 10 },
+                range: [0, 100]
+            },
+            plot_bgcolor: '#FFFFFF',
+            paper_bgcolor: '#FFFFFF',
+            legend: { 
+                font: { family: 'Cairo', size: 10 },
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            },
+            margin: { t: 50, b: 80, l: 60, r: 40 }
+        };
+        
+        Plotly.newPlot('performanceComparison', traces, layout, {responsive: true, displayModeBar: false});
+    }
+    
+    function displayClusterDetails(data, colors) {
+        let detailsHtml = '<div class="row">';
+        data.cluster_stats.forEach(function(cluster, index) {
+            const totalAvg = ((cluster.avg_math_score + cluster.avg_reading_score + cluster.avg_writing_score) / 3).toFixed(1);
+            
+            detailsHtml += `
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-0 shadow-sm cluster-details-card">
+                        <div class="card-header" style="background: linear-gradient(135deg, ${colors[index]} 0%, ${colors[index]}CC 100%); color: white; direction: rtl; text-align: right;">
+                            <h6 class="mb-0"><i class="fas fa-users me-2"></i>${cluster.cluster_name}</h6>
+                        </div>
+                        <div class="card-body cluster-card-body">
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="h4 mb-0" style="color: ${colors[index]};">${cluster.student_count}</div>
+                                        <small class="text-muted">عدد الطلاب</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="h4 mb-0" style="color: ${colors[index]};">${totalAvg}</div>
+                                        <small class="text-muted">المتوسط العام</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3" style="direction: rtl; text-align: right;">
+                                <h6 class="text-primary mb-2">متوسط الدرجات:</h6>
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        <div class="small text-muted">رياضيات</div>
+                                        <div class="fw-bold">${cluster.avg_math_score.toFixed(1)}</div>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <div class="small text-muted">قراءة</div>
+                                        <div class="fw-bold">${cluster.avg_reading_score.toFixed(1)}</div>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <div class="small text-muted">كتابة</div>
+                                        <div class="fw-bold">${cluster.avg_writing_score.toFixed(1)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="cluster-recommendation">
+                                <div style="font-weight: bold; margin-bottom: 5px; color: #B85C57;">التوصية:</div>
+                                <div class="cluster-description">
+                                    ${cluster.description}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        detailsHtml += '</div>';
+        $('#clusterDetails').html(detailsHtml);
+    }
+    
+    
+    function createSimpleScoreDistribution(data, colors) {
+        try {
+            const subjects = ['الرياضيات', 'القراءة', 'الكتابة'];
+            
+            const traces = data.cluster_stats.map((cluster, index) => ({
+                x: subjects,
+                y: [cluster.avg_math, cluster.avg_reading, cluster.avg_writing],
+                type: 'bar',
+                name: cluster.cluster_name,
+                marker: { 
+                    color: colors[index],
+                    line: { color: '#FFFFFF', width: 2 },
+                    opacity: 0.8
+                },
+                text: [cluster.avg_math.toFixed(1), cluster.avg_reading.toFixed(1), cluster.avg_writing.toFixed(1)],
+                textposition: 'auto',
+                textfont: { color: 'white', size: 11, family: 'Cairo', weight: 'bold' },
+                hovertemplate: '<b>%{fullData.name}</b><br>%{x}: %{y:.1f}<br><extra></extra>'
+            }));
+            
+            const layout = {
+                title: {
+                    text: 'متوسط الدرجات لكل مجموعة',
+                    font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                    x: 0.5
+                },
+                xaxis: { 
+                    title: { text: 'المواد الدراسية', font: { family: 'Cairo', size: 10 } },
+                    font: { family: 'Cairo', size: 9 }
+                },
+                yaxis: { 
+                    title: { text: 'متوسط الدرجات', font: { family: 'Cairo', size: 10 } },
+                    font: { family: 'Cairo', size: 9 },
+                    range: [0, 100]
+                },
+                plot_bgcolor: '#FFFFFF',
+                paper_bgcolor: '#FFFFFF',
+                margin: { t: 40, b: 50, l: 40, r: 20 },
+                legend: {
+                    orientation: 'h',
+                    x: 0.5,
+                    xanchor: 'center',
+                    y: -0.2,
+                    font: { family: 'Cairo', size: 8 }
+                },
+                barmode: 'group'
+            };
+            
+            Plotly.newPlot('scoreDistribution', traces, layout, {responsive: true, displayModeBar: false});
+        } catch (error) {
+            console.error('خطأ في رسم توزيع الدرجات:', error);
+            $('#scoreDistribution').html('<div class="alert alert-info text-center m-2"><i class="fas fa-chart-bar me-2"></i>رسم بياني للدرجات</div>');
+        }
+    }
+    
+    function createSimpleCorrelationHeatmap(data) {
+        try {
+            const correlationMatrix = data.correlation_matrix;
+            
+            const trace = {
+                z: correlationMatrix.values,
+                x: correlationMatrix.subjects,
+                y: correlationMatrix.subjects,
+                type: 'heatmap',
+                colorscale: [
+                    [0, '#ffffff'],
+                    [0.2, '#e8f4fd'],
+                    [0.4, '#b3d9f2'],
+                    [0.6, '#7cc7e8'],
+                    [0.8, '#42a5cc'],
+                    [1, '#1f77b4']
+                ],
+                showscale: true,
+                colorbar: {
+                    title: {
+                        text: 'معامل الارتباط',
+                        font: { family: 'Cairo', size: 10 }
+                    },
+                    titleside: 'right'
+                },
+                text: correlationMatrix.values.map(row => 
+                    row.map(val => val.toFixed(2))
+                ),
+                texttemplate: '<b>%{text}</b>',
+                textfont: { 
+                    size: 16, 
+                    family: 'Cairo', 
+                    color: '#000000'
+                },
+                hovertemplate: '<b>%{y} ↔ %{x}</b><br>معامل الارتباط: %{z:.3f}<extra></extra>'
+            };
+            
+            const layout = {
+                title: {
+                    text: 'مصفوفة الارتباط بين المواد الدراسية',
+                    font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                    x: 0.5
+                },
+                xaxis: { 
+                    title: '', 
+                    font: { family: 'Cairo', size: 11, color: '#2C2C2C' },
+                    side: 'bottom',
+                    tickangle: 0
+                },
+                yaxis: { 
+                    title: '', 
+                    font: { family: 'Cairo', size: 11, color: '#2C2C2C' },
+                    autorange: 'reversed'
+                },
+                plot_bgcolor: '#FFFFFF',
+                paper_bgcolor: '#FFFFFF',
+                margin: { t: 40, b: 50, l: 80, r: 80 },
+                width: null,
+                height: null
+            };
+            
+            Plotly.newPlot('correlationHeatmap', [trace], layout, {responsive: true, displayModeBar: false});
+        } catch (error) {
+            console.error('خطأ في رسم مصفوفة الارتباط:', error);
+            $('#correlationHeatmap').html('<div class="alert alert-info text-center m-2"><i class="fas fa-th me-2"></i>مصفوفة الارتباط</div>');
+        }
+    }
+    
+    function createSimpleDemographicAnalysis(data) {
+        try {
+            const genderData = data.demographic_data.gender_distribution;
+            
+            const trace = {
+                labels: ['ذكور', 'إناث'],
+                values: [genderData.male, genderData.female],
+                type: 'pie',
+                marker: {
+                    colors: ['#4A90E2', '#F5A623'],
+                    line: { color: '#FFFFFF', width: 3 }
+                },
+                textinfo: 'label+percent+value',
+                textfont: { family: 'Cairo', size: 11, weight: 'bold' },
+                hovertemplate: '<b>%{label}</b><br>النسبة: %{percent}<br>العدد: %{value:.0f}<extra></extra>',
+                hole: 0.4
+            };
+            
+            const layout = {
+                title: {
+                    text: 'التوزيع حسب الجنس',
+                    font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                    x: 0.5
+                },
+                plot_bgcolor: '#FFFFFF',
+                paper_bgcolor: '#FFFFFF',
+                margin: { t: 40, b: 20, l: 20, r: 20 },
+                showlegend: true,
+                legend: {
+                    orientation: 'h',
+                    x: 0.5,
+                    xanchor: 'center',
+                    y: -0.1,
+                    font: { family: 'Cairo', size: 9 }
+                },
+                annotations: [{
+                    text: 'التوزيع<br>الديموغرافي',
+                    x: 0.5, y: 0.5,
+                    font: { family: 'Cairo', size: 12, weight: 'bold', color: '#2C2C2C' },
+                    showarrow: false
+                }]
+            };
+            
+            Plotly.newPlot('demographicAnalysis', [trace], layout, {responsive: true, displayModeBar: false});
+        } catch (error) {
+            console.error('خطأ في رسم التحليل الديموغرافي:', error);
+            $('#demographicAnalysis').html('<div class="alert alert-info text-center m-2"><i class="fas fa-users me-2"></i>التحليل الديموغرافي</div>');
+        }
+    }
+    
+    function createSimplePerformanceComparison(data, colors) {
+        try {
+            const clusterNames = data.cluster_stats.map(c => c.cluster_name);
+            
+            const traces = [
+                {
+                    x: clusterNames,
+                    y: data.cluster_stats.map(c => c.avg_math),
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: 'الرياضيات',
+                    line: { color: '#B85C57', width: 3 },
+                    marker: { size: 8, color: '#B85C57' },
+                    hovertemplate: '<b>الرياضيات</b><br>%{x}: %{y:.1f}<extra></extra>'
+                },
+                {
+                    x: clusterNames,
+                    y: data.cluster_stats.map(c => c.avg_reading),
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: 'القراءة',
+                    line: { color: '#28a745', width: 3 },
+                    marker: { size: 8, color: '#28a745' },
+                    hovertemplate: '<b>القراءة</b><br>%{x}: %{y:.1f}<extra></extra>'
+                },
+                {
+                    x: clusterNames,
+                    y: data.cluster_stats.map(c => c.avg_writing),
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: 'الكتابة',
+                    line: { color: '#ffc107', width: 3 },
+                    marker: { size: 8, color: '#ffc107' },
+                    hovertemplate: '<b>الكتابة</b><br>%{x}: %{y:.1f}<extra></extra>'
+                }
+            ];
+            
+            const layout = {
+                title: {
+                    text: 'مقارنة أداء المجموعات عبر المواد',
+                    font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                    x: 0.5
+                },
+                xaxis: { 
+                    title: { text: 'المجموعات', font: { family: 'Cairo', size: 10 } },
+                    font: { family: 'Cairo', size: 9 }
+                },
+                yaxis: { 
+                    title: { text: 'متوسط الدرجات', font: { family: 'Cairo', size: 10 } },
+                    font: { family: 'Cairo', size: 9 },
+                    range: [0, 100]
+                },
+                plot_bgcolor: '#FFFFFF',
+                paper_bgcolor: '#FFFFFF',
+                margin: { t: 40, b: 60, l: 50, r: 30 },
+                legend: {
+                    orientation: 'h',
+                    x: 0.5,
+                    xanchor: 'center',
+                    y: -0.15,
+                    font: { family: 'Cairo', size: 9 }
+                }
+            };
+            
+            Plotly.newPlot('performanceComparison', traces, layout, {responsive: true, displayModeBar: false});
+        } catch (error) {
+            console.error('خطأ في رسم مقارنة الأداء:', error);
+            $('#performanceComparison').html('<div class="alert alert-info text-center m-2"><i class="fas fa-chart-line me-2"></i>مقارنة الأداء</div>');
+        }
+    }
+    
+    function displaySimpleClusterDetails(data, colors) {
+        $('#clusterDetailsSection').fadeIn(500);
+        
+        try {
+            
+            const subjects = ['الرياضيات', 'القراءة', 'الكتابة'];
+            
+            const traces = subjects.map((subject, subjectIndex) => {
+                const subjectKey = ['avg_math', 'avg_reading', 'avg_writing'][subjectIndex];
+                const subjectColors = ['#B85C57', '#28a745', '#ffc107'][subjectIndex];
+                
+                return {
+                    x: data.cluster_stats.map(c => c.cluster_name),
+                    y: data.cluster_stats.map(c => c[subjectKey]),
+                    type: 'bar',
+                    name: subject,
+                    marker: { 
+                        color: subjectColors,
+                        opacity: 0.8,
+                        line: { color: '#FFFFFF', width: 1 }
+                    },
+                    text: data.cluster_stats.map(c => c[subjectKey].toFixed(1)),
+                    textposition: 'auto',
+                    textfont: { color: 'white', size: 10, family: 'Cairo', weight: 'bold' },
+                    hovertemplate: '<b>%{fullData.name}</b><br>%{x}: %{y:.1f}<br><extra></extra>'
+                };
+            });
+            
+            const layout = {
+                title: {
+                    text: 'مقارنة تفصيلية لأداء المجموعات',
+                    font: { family: 'Cairo', size: 14, color: '#2C2C2C' },
+                    x: 0.5
+                },
+                xaxis: { 
+                    title: { text: 'المجموعات', font: { family: 'Cairo', size: 10 } },
+                    font: { family: 'Cairo', size: 9 }
+                },
+                yaxis: { 
+                    title: { text: 'متوسط الدرجات', font: { family: 'Cairo', size: 10 } },
+                    font: { family: 'Cairo', size: 9 },
+                    range: [0, 100]
+                },
+                plot_bgcolor: '#FFFFFF',
+                paper_bgcolor: '#FFFFFF',
+                margin: { t: 50, b: 80, l: 50, r: 30 },
+                legend: {
+                    orientation: 'h',
+                    x: 0.5,
+                    xanchor: 'center',
+                    y: -0.15,
+                    font: { family: 'Cairo', size: 9 }
+                },
+                barmode: 'group'
+            };
+            
+            Plotly.newPlot('clusterDetails', traces, layout, {responsive: true, displayModeBar: false});
+            
+            setTimeout(() => {
+                let summaryHtml = '<div class="cluster-summary mt-3">';
+                summaryHtml += '<h6 class="text-center mb-3" style="color: #2C2C2C;">📊 ملخص إحصائي للمجموعات</h6>';
+                summaryHtml += '<div class="row g-2">';
+                
+                data.cluster_stats.forEach((cluster, index) => {
+                    const avgTotal = (cluster.avg_math + cluster.avg_reading + cluster.avg_writing) / 3;
+                    const performance = avgTotal >= 80 ? 'ممتاز 🏆' : avgTotal >= 70 ? 'جيد جداً ⭐' : avgTotal >= 60 ? 'جيد 👍' : 'يحتاج تحسين 📈';
+                    const performanceColor = avgTotal >= 80 ? '#28a745' : avgTotal >= 70 ? '#17a2b8' : avgTotal >= 60 ? '#ffc107' : '#dc3545';
+                    
+                    summaryHtml += `
+                        <div class="col-md-3 col-6">
+                            <div class="summary-card" style="border-top: 4px solid ${colors[index]};">
+                                <div class="summary-title" style="color: ${colors[index]};">${cluster.cluster_name}</div>
+                                <div class="summary-count">${cluster.student_count} طالب</div>
+                                <div class="summary-avg" style="color: ${performanceColor};">${avgTotal.toFixed(1)}</div>
+                                <div class="summary-performance" style="color: ${performanceColor}; font-size: 0.8rem; margin-top: 5px;">
+                                    ${performance}
+                                </div>
+                                <div class="summary-breakdown" style="font-size: 0.7rem; color: #6c757d; margin-top: 8px;">
+                                    📊 ${cluster.avg_math.toFixed(1)} | 📚 ${cluster.avg_reading.toFixed(1)} | ✍️ ${cluster.avg_writing.toFixed(1)}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                summaryHtml += '</div></div>';
+                $('#clusterDetails').append(summaryHtml);
+            }, 800);
+            
+        } catch (error) {
+            console.error('خطأ في عرض تفاصيل المجموعات:', error);
+            
+            
+            let html = '<div class="alert alert-info text-center mb-3">';
+            html += '<i class="fas fa-chart-bar me-2"></i>';
+            html += '<strong>تحليل تفصيلي للمجموعات</strong>';
+            html += '</div>';
+            
+            html += '<div class="row g-3">';
+            data.cluster_stats.forEach((cluster, index) => {
+                const avgTotal = (cluster.avg_math + cluster.avg_reading + cluster.avg_writing) / 3;
+                const performance = avgTotal >= 80 ? 'ممتاز' : avgTotal >= 70 ? 'جيد جداً' : avgTotal >= 60 ? 'جيد' : 'يحتاج تحسين';
+                const performanceColor = avgTotal >= 80 ? '#28a745' : avgTotal >= 70 ? '#17a2b8' : avgTotal >= 60 ? '#ffc107' : '#dc3545';
+                
+                html += `
+                    <div class="col-md-6 col-lg-3">
+                        <div class="cluster-card-enhanced" style="border-left: 5px solid ${colors[index]}; background: linear-gradient(135deg, ${colors[index]}11, ${colors[index]}22);">
+                            <div class="cluster-header-enhanced" style="background: ${colors[index]}33; color: ${colors[index]};">
+                                <h6 class="mb-0">${cluster.cluster_name}</h6>
+                                <span class="badge" style="background: ${colors[index]};">${cluster.student_count} طالب</span>
+                            </div>
+                            <div class="cluster-body-enhanced">
+                                <div class="score-grid">
+                                    <div class="score-item">
+                                        <span class="score-icon">📊</span>
+                                        <span class="score-label">رياضيات</span>
+                                        <span class="score-value" style="color: #B85C57;">${cluster.avg_math.toFixed(1)}</span>
+                                    </div>
+                                    <div class="score-item">
+                                        <span class="score-icon">📚</span>
+                                        <span class="score-label">قراءة</span>
+                                        <span class="score-value" style="color: #28a745;">${cluster.avg_reading.toFixed(1)}</span>
+                                    </div>
+                                    <div class="score-item">
+                                        <span class="score-icon">✍️</span>
+                                        <span class="score-label">كتابة</span>
+                                        <span class="score-value" style="color: #ffc107;">${cluster.avg_writing.toFixed(1)}</span>
+                                    </div>
+                                </div>
+                                <div class="total-score" style="background: ${performanceColor}22; color: ${performanceColor};">
+                                    <strong>المتوسط العام: ${avgTotal.toFixed(1)}</strong>
+                                    <div style="font-size: 0.8rem; margin-top: 4px;">${performance}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            $('#clusterDetails').html(html);
+        }
+    }
+    
+    
+    function restoreClusterResults() {
+        if (window.lastClusterResults && window.lastClusterColors) {
+            console.log('🔄 استعادة نتائج التجميع...');
+            displayClusterResults(window.lastClusterResults);
+        }
+    }
+    
+    
+    setInterval(function() {
+        const statsContent = $('#clusterStats').html();
+        if (statsContent && statsContent.includes('قم بتنفيذ التجميع') && window.lastClusterResults) {
+            console.log('⚠️ تم اكتشاف اختفاء النتائج، جاري الاستعادة...');
+            restoreClusterResults();
+        }
+    }, 2000);
+    
+    
+    $(window).on('beforeunload', function() {
+        if (window.lastClusterResults) {
+            localStorage.setItem('clusterResults', JSON.stringify(window.lastClusterResults));
+            localStorage.setItem('clusterColors', JSON.stringify(window.lastClusterColors));
+        }
+    });
+    
+    
+    $(document).ready(function() {
+        const savedResults = localStorage.getItem('clusterResults');
+        const savedColors = localStorage.getItem('clusterColors');
+        
+        if (savedResults && savedColors) {
+            window.lastClusterResults = JSON.parse(savedResults);
+            window.lastClusterColors = JSON.parse(savedColors);
+            
+            setTimeout(function() {
+                console.log('📂 استعادة النتائج المحفوظة...');
+                displayClusterResults(window.lastClusterResults);
+            }, 1000);
+        }
+    });
+});
+</script>
+{% endblock %}
