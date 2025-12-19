@@ -5,16 +5,16 @@
 {% block content %}
 <div class="col-12">
     <div class="main-content">
-        <!-- Modern 3D Page Header -->
+        
         <div class="page-header-3d fade-in-up">
             <h1>التنبؤ بدرجات الطلاب</h1>
             <p>نظام ذكي للتنبؤ بالأداء الأكاديمي باستخدام خوارزميات التعلم الآلي المتطورة</p>
         </div>
         
         <div class="row">
-            <!-- Left Column: Input Form and Results -->
+            
             <div class="col-md-6">
-                <!-- 3D Input Form -->
+                
                 <div class="form-3d fade-in-left mb-4">
                     <div class="text-center mb-4">
                         <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">بيانات الطالب</div>
@@ -80,7 +80,7 @@
                         </form>
                 </div>
                 
-                <!-- 3D Results Section -->
+                
                 <div class="card-3d fade-in-up">
                     <div class="text-center mb-4">
                         <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">النتائج</div>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 
-                <!-- 3D Prediction Chart -->
+                
                 <div class="chart-container-3d mt-4 fade-in-up">
                     <div class="text-center mb-3">
                         <h5 style="color: var(--text-primary);">
@@ -106,9 +106,9 @@
                 </div>
             </div>
             
-            <!-- Right Column: Model Training and Performance -->
+            
             <div class="col-md-6">
-                <!-- Model Training -->
+                
                 <div class="card-3d fade-in-right mb-4">
                     <div class="text-center mb-4">
                         <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">تدريب النموذج</div>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 
-                <!-- Model Performance -->
+                
                 <div class="card-3d fade-in-up">
                     <div class="text-center mb-4">
                         <div class="stats-icon-3d" style="font-size: 1.8rem; margin-bottom: 15px;">أداء النماذج</div>
@@ -145,7 +145,7 @@
             </div>
         </div>
         
-        <!-- Information Section -->
+        
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
@@ -174,7 +174,7 @@
     </div>
 </div>
 
-<!-- Detailed Performance Modal -->
+
 <div class="modal fade" id="performanceModal" tabindex="-1" aria-labelledby="performanceModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -208,10 +208,8 @@
 {% block scripts %}
 <script>
 $(document).ready(function() {
-    // Check if models are trained on page load
     checkModelStatus();
     
-    // Train Model
     $('#trainModel').click(function() {
         const btn = $(this);
         btn.prop('disabled', true).html('⏳ جاري التدريب...');
@@ -230,7 +228,7 @@ $(document).ready(function() {
             headers: {
                 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
             },
-            timeout: 300000, // 5 minutes timeout
+            timeout: 300000, 
             success: function(data) {
                 $('#trainingStatus').html(`
                     <div class="alert alert-success">
@@ -243,7 +241,6 @@ $(document).ready(function() {
                 `);
                 btn.prop('disabled', false).html('🚀 تدريب النموذج');
                 
-                // إعادة فحص حالة النماذج وتمكين النموذج
                 setTimeout(function() {
                     checkModelStatus();
                 }, 1000);
@@ -268,11 +265,9 @@ $(document).ready(function() {
         });
     });
     
-    // Prediction Form
     $('#predictionForm').submit(function(e) {
         e.preventDefault();
         
-        // Show loading state
         $('#predictionResults').html(`
             <div class="text-center py-4">
                 <div class="spinner-border text-primary" role="status">
@@ -290,7 +285,6 @@ $(document).ready(function() {
             test_preparation: $('[name=test_preparation]').val()
         };
         
-        // Validate form data
         const requiredFields = {
             'gender': 'الجنس',
             'race_ethnicity': 'العرق/الإثنية', 
@@ -318,7 +312,6 @@ $(document).ready(function() {
         
         console.log('Form data being sent:', formData);
         
-        // استدعاء API التنبؤ الحقيقي
         $.ajax({
             url: '/api/prediction/predict/',
             method: 'POST',
@@ -331,7 +324,6 @@ $(document).ready(function() {
                 if (response.success && response.predictions) {
                     const predictions = response.predictions;
                     
-                    // Display comprehensive prediction results
                     $('#predictionResults').html(`
                         <div class="prediction-success">
                             <div class="row mb-4">
@@ -355,7 +347,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
                             
-                            <!-- Performance Summary -->
+                            
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <div class="alert alert-info" style="background: linear-gradient(135deg, ${predictions.performance_color}22, ${predictions.performance_color}11); border: 1px solid ${predictions.performance_color};">
@@ -370,7 +362,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
                             
-                            <!-- Recommendations -->
+                            
                             <div class="row">
                                 <div class="col-12">
                                     <div class="alert alert-success">
@@ -384,10 +376,8 @@ $(document).ready(function() {
                         </div>
                     `);
                     
-                    // إنشاء الرسم البياني
                     createPredictionChart(predictions);
                     
-                    // عرض أداء النماذج إذا كان متاحاً
                     if (response.model_performance) {
                         displayModelPerformance(response.model_performance);
                     }
@@ -427,7 +417,6 @@ $(document).ready(function() {
                             </div>
                         `;
                         
-                        // Show available options if provided
                         if (xhr.responseJSON.available_options) {
                             const options = xhr.responseJSON.available_options;
                             errorMessage += `
@@ -466,20 +455,17 @@ $(document).ready(function() {
 
     });
     
-    // Show Detailed Performance Report
     $('#showDetailedPerformance').click(function() {
         $('#performanceModal').modal('show');
         loadDetailedPerformance();
     });
     
-    // Download Report Handler
     $('#downloadReport').click(function() {
         const btn = $(this);
         const originalText = btn.html();
         
         btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-1"></i>جاري التحميل...');
         
-        // Create a temporary link to download the PDF
         const link = document.createElement('a');
         link.href = '/api/prediction/download-report/';
         link.download = 'performance_report.pdf';
@@ -487,13 +473,11 @@ $(document).ready(function() {
         link.click();
         document.body.removeChild(link);
         
-        // Reset button after a short delay
         setTimeout(() => {
             btn.prop('disabled', false).html(originalText);
         }, 2000);
     });
     
-    // دالة إنشاء الرسم البياني
     function createPredictionChart(predictions) {
         const trace = {
             x: ['الرياضيات', 'القراءة', 'الكتابة'],
@@ -559,7 +543,7 @@ $(document).ready(function() {
         }
     }
     
-    // دالة عرض أداء النماذج الحقيقي
+
     function displayModelPerformance(performance) {
         $('#modelPerformance').html(`
             <div class="row">
@@ -589,7 +573,6 @@ $(document).ready(function() {
         `);
     }
     
-    // دالة عرض أداء النماذج التجريبي (احتياطي)
     function displayMockPerformance() {
         $('#modelPerformance').html(`
             <div class="row">
@@ -636,7 +619,7 @@ $(document).ready(function() {
                 const metrics = data.performance_metrics;
                 let content = '';
                 
-                // Performance Summary
+                
                 content += `
                     <div class="row mb-4 performance-modal-rtl">
                         <div class="col-12">
@@ -691,7 +674,7 @@ $(document).ready(function() {
                 
                 content += '</div>';
                 
-                // Confusion Matrices
+                
                 content += `
                     <div class="row mb-4 performance-modal-rtl">
                         <div class="col-12">
@@ -722,7 +705,7 @@ $(document).ready(function() {
                 
                 content += '</div>';
                 
-                // Residuals Plots
+                
                 content += `
                     <div class="row mb-4 performance-modal-rtl">
                         <div class="col-12">
@@ -753,7 +736,7 @@ $(document).ready(function() {
                 
                 content += '</div>';
                 
-                // Actual vs Predicted Plots
+                
                 content += `
                     <div class="row mb-4 performance-modal-rtl">
                         <div class="col-12">
@@ -784,7 +767,7 @@ $(document).ready(function() {
                 
                 content += '</div>';
                 
-                // Feature Importance
+                
                 content += `
                     <div class="row performance-modal-rtl">
                         <div class="col-12">
@@ -798,7 +781,7 @@ $(document).ready(function() {
                     const metric = metrics[subject];
                     const importance = metric.feature_importance;
                     
-                    // Translate feature names to Arabic
+                    
                     const featureTranslations = {
                         'gender': 'الجنس',
                         'race/ethnicity': 'العرق/الإثنية',
@@ -855,14 +838,13 @@ $(document).ready(function() {
         });
     }
     
-    // دالة فحص حالة النماذج
+    
     function checkModelStatus() {
         $.ajax({
             url: '/api/prediction/status/',
             method: 'GET',
             success: function(data) {
                 if (data.models_ready) {
-                    // النماذج مدربة ومتاحة - تمكين النموذج
                     $('#predictionForm input, #predictionForm select, #predictionForm button[type="submit"]').prop('disabled', false);
                     $('#modelStatus').html(`
                         <div class="alert alert-success">
@@ -871,7 +853,6 @@ $(document).ready(function() {
                     `);
                     console.log('✅ النماذج مدربة وجاهزة للتنبؤ');
                 } else {
-                    // النماذج غير مدربة - تعطيل النموذج
                     $('#predictionForm input, #predictionForm select, #predictionForm button[type="submit"]').prop('disabled', true);
                     
                     $('#modelStatus').html(`
@@ -896,7 +877,7 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
-                // خطأ في فحص النماذج - تعطيل النموذج احتياطياً
+                
                 $('#predictionForm input, #predictionForm select, #predictionForm button[type="submit"]').prop('disabled', true);
                 
                 $('#modelStatus').html(`

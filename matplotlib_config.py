@@ -7,14 +7,11 @@ import warnings
 def configure_matplotlib_for_arabic():
     """Configure matplotlib for Arabic text with Windows fonts"""
     
-    # Suppress font warnings
     warnings.filterwarnings('ignore', category=UserWarning, module='matplotlib.font_manager')
     warnings.filterwarnings('ignore', message='findfont: Font family.*not found')
     
-    # Set matplotlib backend to non-interactive
     plt.switch_backend('Agg')
     
-    # Configure font settings for Windows
     plt.rcParams.update({
         'font.family': ['Tahoma', 'Arial', 'DejaVu Sans'],
         'font.size': 12,
