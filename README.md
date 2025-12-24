@@ -1,4 +1,6 @@
-<img width="1913" height="822" alt="Dice Roller Banner" src="https://github.com/user-attachments/assets/dice-roller-banner.png" />
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7fb7b9c3-016c-4145-b0ca-acb87df74a9b" alt="Dice Roller Banner" width="90%" />
+</div>
 
 <h1 align="center" style="color:#2c3e50;">🎲 Dice Roller</h1>
 <h3 align="center" style="color:#34495e;">Modern Android Dice Rolling Experience</h3>
@@ -10,7 +12,6 @@ A beautiful Android application for rolling dice with <b>stunning 3D animations<
 <hr>
 
 <h2 style="color:#2c3e50;">Overview</h2>
-
 <p>
 <b>Dice Roller</b> is designed to provide the ultimate dice rolling experience for gamers and board game enthusiasts. 
 The app integrates <b>Jetpack Compose</b> with modern <b>Material Design 3</b> to deliver smooth animations and interactive gameplay.
