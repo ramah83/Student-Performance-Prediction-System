@@ -1,9 +1,10 @@
-<img width="1913" height="822" alt="image" src="https://github.com/user-attachments/assets/e475158e-9cde-49cc-b2c9-c8f8df8fc7f7" /><h1 align="center" style="color:#2c3e50;">Education AI</h1>
-<h3 align="center" style="color:#34495e;">Student Performance Prediction System</h3>
+<img width="1913" height="822" alt="Dice Roller Banner" src="https://github.com/user-attachments/assets/dice-roller-banner.png" />
+
+<h1 align="center" style="color:#2c3e50;">🎲 Dice Roller</h1>
+<h3 align="center" style="color:#34495e;">Modern Android Dice Rolling Experience</h3>
 
 <p align="center">
-A comprehensive system for analyzing and predicting student performance using
-<b>Artificial Intelligence</b> and <b>Machine Learning</b>.
+A beautiful Android application for rolling dice with <b>stunning 3D animations</b> and <b>comprehensive statistics</b>.
 </p>
 
 <hr>
@@ -11,8 +12,8 @@ A comprehensive system for analyzing and predicting student performance using
 <h2 style="color:#2c3e50;">Overview</h2>
 
 <p>
-<b>Education AI</b> is designed to help educators and data analysts understand student performance through prediction, analysis, clustering, and visualization.
-The system integrates <b>Django</b> with modern <b>Machine Learning models</b> to provide accurate insights and interactive dashboards.
+<b>Dice Roller</b> is designed to provide the ultimate dice rolling experience for gamers and board game enthusiasts. 
+The app integrates <b>Jetpack Compose</b> with modern <b>Material Design 3</b> to deliver smooth animations and interactive gameplay.
 </p>
 
 <hr>
@@ -20,62 +21,49 @@ The system integrates <b>Django</b> with modern <b>Machine Learning models</b> t
 <h2 style="color:#2c3e50;">Key Features</h2>
 
 <ul>
-  <li><b>Grade Prediction</b><br>
-      Predict student scores in math, reading, and writing.
-  </li>
-  <br>
-  <li><b>Data Analysis</b><br>
-      Comprehensive analysis of student performance and influencing factors.
-  </li>
-  <br>
-  <li><b>Smart Clustering</b><br>
-      Group students based on performance and shared characteristics.
-  </li>
-  <br>
-  <li><b>Interactive Dashboard</b><br>
-      Modern user interface with interactive charts and visualizations.
-  </li>
-  <br>
-  <li><b>Detailed Reports</b><br>
-      Generate comprehensive <b>PDF reports</b> on student performance.
-  </li>
+<li><b>Multiple Dice Rolling</b><br>
+Roll 1 to 9 dice simultaneously with realistic physics.</li>
+<br>
+<li><b>3D Animations</b><br>
+Stunning visual effects with smooth dice rotations and throws.</li>
+<br>
+<li><b>Smart Statistics</b><br>
+Track your rolls with comprehensive statistics and history.</li>
+<br>
+<li><b>Dark/Light Themes</b><br>
+Beautiful theme switching with gradient backgrounds.</li>
+<br>
+<li><b>Social Sharing</b><br>
+Share your epic rolls with friends and fellow gamers.</li>
 </ul>
 
 <hr>
 
 <h2 style="color:#2c3e50;">Technologies Used</h2>
 
-<h3 style="color:#34495e;">Backend</h3>
-<ul>
-  <li>Django 4.2</li>
-  <li>Django REST Framework</li>
-</ul>
-
-<h3 style="color:#34495e;">Machine Learning</h3>
-<ul>
-  <li>Scikit-learn</li>
-  <li>TensorFlow / Keras</li>
-</ul>
-
 <h3 style="color:#34495e;">Frontend</h3>
 <ul>
-  <li>HTML5</li>
-  <li>CSS3</li>
-  <li>JavaScript</li>
-  <li>Chart.js</li>
+<li>Jetpack Compose</li>
+<li>Material Design 3</li>
 </ul>
 
-<h3 style="color:#34495e;">Data Processing & Visualization</h3>
+<h3 style="color:#34495e;">Programming Language</h3>
 <ul>
-  <li>Pandas</li>
-  <li>NumPy</li>
-  <li>Matplotlib</li>
-  <li>Seaborn</li>
+<li>Kotlin</li>
+<li>Android SDK</li>
 </ul>
 
-<h3 style="color:#34495e;">Database</h3>
+<h3 style="color:#34495e;">Animations & Effects</h3>
 <ul>
-  <li>SQLite (Scalable to PostgreSQL)</li>
+<li>Compose Animation</li>
+<li>3D Graphics Layer</li>
+<li>Haptic Feedback</li>
+</ul>
+
+<h3 style="color:#34495e;">Data Storage</h3>
+<ul>
+<li>SharedPreferences</li>
+<li>Local Statistics</li>
 </ul>
 
 <hr>
@@ -83,103 +71,98 @@ The system integrates <b>Django</b> with modern <b>Machine Learning models</b> t
 <h2 style="color:#2c3e50;">Requirements</h2>
 
 <ul>
-  <li>Python <b>3.8+</b></li>
-  <li>Django <b>4.2+</b></li>
-  <li>Libraries listed in <code>requirements.txt</code></li>
+<li>Android <b>7.0+</b> (API level 24)</li>
+<li>Target SDK <b>35</b></li>
+<li>Storage: <b>~10 MB</b></li>
 </ul>
-
 
 <hr>
 
 <h2 align="center">Project Screenshots</h2>
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/50df3167-8bd4-419a-a81d-c8e939d367dd" width="30%" />
-  <img src="https://github.com/user-attachments/assets/b64c5aa3-2595-4a77-80e4-9781174fac53" width="30%" />
-  <img src="https://github.com/user-attachments/assets/d9b59235-5694-42d1-af7b-decc11f26c9d" width="30%" />
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/59c38223-2d4d-409c-bc1e-fd81109f01ec" width="30%" />
-  <img src="https://github.com/user-attachments/assets/a5b4b5d8-4c09-4445-9fdb-e9838385af4f" width="30%" />
-  <img src="https://github.com/user-attachments/assets/b399ae6d-2f5a-4e48-8cdd-32914f22a7c1" width="30%" />
-</p>
+<img src="https://github.com/user-attachments/assets/42bbd233-0972-4e44-895a-ebeba9b7f504" width="30%" />
+<img src="https://github.com/user-attachments/assets/1ff86243-2057-4817-b8cb-de2185007125" width="30%" />
+<img src="https://github.com/user-attachments/assets/3f3e90b5-663c-4b9f-8978-4cc13dae1173" width="30%" />
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/31379cbe-9e9e-4301-a74c-e563c9ce680f" width="45%" />
-  <img src="https://github.com/user-attachments/assets/b3eda8b8-08a4-4605-8a03-c3c8677bdd31" width="45%" />
-</p>
+<br/><br/>
+
+<img src="https://github.com/user-attachments/assets/202b3aa7-0eb0-4934-9543-31bd4e554088" width="30%" />
+<img src="https://github.com/user-attachments/assets/ce5d8b59-aa19-4e84-8372-c47ab6823e3e" width="30%" />
+<img src="https://github.com/user-attachments/assets/2d9dd2d9-80e4-4c57-b438-df539fca890c" width="30%" />
+
+<br/><br/>
+
+<img src="https://github.com/user-attachments/assets/9ce6d2fa-403f-4936-89cd-d1d9e1e8f76d" width="30%" />
+<img src="https://github.com/user-attachments/assets/8185f3b1-dde3-4df4-838b-d6512d2bf262" width="30%" />
+<img src="https://github.com/user-attachments/assets/d59ddbd8-c1ab-4bb7-9dcd-7cefc7ee673e" width="30%" />
+
+</div>
 
 <hr>
 
 <h2 style="color:#2c3e50;">Installation and Setup</h2>
 
 <h3>1. Clone the Repository</h3>
-<pre><code>git clone https://github.com/yourusername/education-ai.git
-cd education-ai</code></pre>
+<pre><code>git clone https://github.com/yourusername/dice-roller.git
+cd dice-roller</code></pre>
 
-<h3>2. Create Virtual Environment</h3>
-<pre><code>python -m venv venv
-venv\Scripts\activate
+<h3>2. Open in Android Studio</h3>
+<pre><code>Open Android Studio
+File -> Open -> Select dice-roller folder</code></pre>
+
+<h3>3. Build and Run</h3>
+<pre><code>./gradlew assembleDebug
 # or
-source venv/bin/activate</code></pre>
+Run from Android Studio</code></pre>
 
-<h3>3. Install Requirements</h3>
-<pre><code>pip install -r requirements.txt</code></pre>
-
-<h3>4. Setup Database</h3>
-<pre><code>python manage.py makemigrations
-python manage.py migrate</code></pre>
-
-<h3>5. Train Machine Learning Models</h3>
-<pre><code>python manage.py train_models</code></pre>
-
-<h3>6. Run Development Server</h3>
-<pre><code>python manage.py runserver</code></pre>
+<h3>4. Install APK (For Users)</h3>
+<pre><code>Download APK from Releases
+Enable Unknown Sources
+Install and Enjoy!</code></pre>
 
 <hr>
 
 <h2 style="color:#2c3e50;">Project Structure</h2>
 
-<pre><code>education_ai/
-├── clustering/          # Smart clustering application
-├── dashboard/           # Main dashboard
-├── prediction/          # Prediction and analysis application
-├── models/              # Trained ML models
-├── Data/                # Student data
-├── static/              # Static files (CSS, JS)
-├── templates/           # HTML templates
-└── requirements.txt     # Project requirements</code></pre>
+<pre><code>dice-roller/
+├── app/
+│   ├── src/main/
+│   │   ├── java/com/example/diceroller/
+│   │   │   └── MainActivity.kt      # Main application logic
+│   │   ├── res/
+│   │   │   ├── drawable/            # Dice images (p1-p6.png)
+│   │   │   ├── values/              # Colors and themes
+│   │   │   └── mipmap-*/            # App icons
+│   │   └── AndroidManifest.xml      # App configuration
+│   ├── build.gradle.kts             # Build configuration
+│   └── proguard-rules.pro           # Optimization rules
+└── gradle/                          # Gradle wrapper</code></pre>
 
 <hr>
 
 <h2 style="color:#2c3e50;">Usage</h2>
 
 <ul>
-  <li><b>Home Page</b><br>
-      Displays general statistics about student performance.
-  </li>
-  <br>
-  <li><b>Grade Prediction</b><br>
-      Input new student data to get predicted scores.
-  </li>
-  <br>
-  <li><b>Clustering Analysis</b><br>
-      View different student groups and their characteristics.
-  </li>
-  <br>
-  <li><b>Reports</b><br>
-      Generate detailed PDF performance reports.
-  </li>
+<li><b>Main Screen</b><br>
+Roll dice with beautiful 3D animations and view results.</li>
+<br>
+<li><b>Statistics View</b><br>
+Track your rolling performance with detailed analytics.</li>
+<br>
+<li><b>Theme Toggle</b><br>
+Switch between light and dark modes seamlessly.</li>
+<br>
+<li><b>Social Sharing</b><br>
+Share your amazing rolls with friends and gaming groups.</li>
 </ul>
 
 <hr>
 
 <h2 style="color:#2c3e50;">Contact</h2>
 
-<p>
-For any questions or suggestions, please open an <b>Issue</b> in the project.
-</p>
+<p>For any questions or suggestions, please open an <b>Issue</b> in the project.</p>
 
 <p>
 <b>Email:</b> rammohamed962@gmail.com<br>
